@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A1526">
+<meta name="description" content="国家国防科技工业软件产教研平台——国家一流产教研融合示范平台，聚焦国防领域军工工业软件自主可控发展需求。">
+<title>国家国防科技工业软件产教研平台 · 国家一流产教研融合示范平台</title>
+<style>
+/* ============ Design Tokens ============ */
+:root{
+  --navy-950:#060D18;--navy-900:#0A1526;--navy-850:#0D1B30;--navy-800:#12253F;--navy-700:#173254;
+  --blue:#2F6FD0;--blue-2:#5B93E3;--blue-t:#EAF1FA;--blue-d:#24558F;
+  --gold:#C9A55C;--gold-2:#E3C88E;--gold-t:#F6EFDF;--gold-d:#8F6F33;
+  --teal:#2E8A6B;--teal-t:#E3F2EC;
+  --purple:#6A55B8;--purple-t:#EEEAF8;
+  --red:#C0392B;--red-t:#FAECEA;--amber:#C08428;--amber-t:#FAF3E2;
+  --bg:#F4F6FA;--card:#FFFFFF;--line:#E3E9F1;--line-2:#D3DCE8;
+  --ink:#141E2E;--ink-2:#4E5D74;--ink-3:#8A96AA;
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','HarmonyOS Sans SC','MiSans','Noto Sans SC','Source Han Sans SC','Microsoft YaHei',sans-serif;
+  --num:'Bahnschrift','DIN Alternate','Segoe UI',var(--font);
+  --sh-sm:0 1px 2px rgba(16,34,56,.06);
+  --sh-md:0 2px 6px rgba(16,34,56,.06),0 12px 28px -14px rgba(16,34,56,.16);
+  --r-sm:6px;--r-md:10px;--r-lg:14px;
+  --nav-h:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select{font-family:inherit;font-size:14px}
+ul,ol{list-style:none}
+::selection{background:rgba(47,111,208,.22)}
+:focus-visible{outline:2px solid var(--blue-2);outline-offset:2px;border-radius:4px}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.hidden{display:none!important}
+.wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+.ico{width:18px;height:18px;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ============ Buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 22px;border-radius:var(--r-sm);font-size:14px;font-weight:600;letter-spacing:.04em;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;border:1px solid transparent}
+.btn .ico{width:16px;height:16px}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-d);transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(47,111,208,.55)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.28)}
+.btn-ghost:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#B78F45);color:#0A1526}
+.btn-gold:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(201,165,92,.6)}
+.btn-line{background:#fff;color:var(--ink);border-color:var(--line-2)}
+.btn-line:hover{border-color:var(--blue);color:var(--blue)}
+.btn-lg{height:48px;padding:0 30px;font-size:15px}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.icon-btn{width:38px;height:38px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:inherit;transition:background .2s;position:relative}
+.icon-btn:hover{background:rgba(255,255,255,.12)}
+.icon-btn .dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--gold);border:1.5px solid var(--navy-900)}
+
+/* ============ Navigation ============ */
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:900;background:linear-gradient(180deg,rgba(7,14,25,.82),rgba(7,14,25,.55));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07);transition:background .3s}
+.nav.scrolled{background:rgba(8,15,27,.94);box-shadow:0 8px 30px -12px rgba(0,0,0,.5)}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.25}
+.brand-text strong{color:#fff;font-size:15.5px;font-weight:700;letter-spacing:.06em}
+.brand-text span{color:rgba(255,255,255,.38);font-size:9px;letter-spacing:.14em;font-family:var(--num)}
+.nav-menu{display:flex;align-items:center;gap:2px;height:var(--nav-h);margin:0 auto}
+.nav-item{position:relative;height:var(--nav-h);display:flex;align-items:center}
+.nav-link{display:flex;align-items:center;gap:5px;height:100%;padding:0 16px;color:rgba(255,255,255,.82);font-size:14.5px;font-weight:500;letter-spacing:.03em;transition:color .2s;position:relative}
+.nav-link .ico{width:13px;height:13px;opacity:.55;transition:transform .25s}
+.nav-link::after{content:'';position:absolute;left:16px;right:16px;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .28s}
+.nav-item:hover .nav-link,.nav-link.active{color:#fff}
+.nav-item:hover .nav-link::after,.nav-link.active::after{transform:scaleX(1)}
+.nav-item:hover .nav-link .ico{transform:rotate(180deg);opacity:.9}
+.mega{position:absolute;top:var(--nav-h);left:50%;transform:translateX(-50%) translateY(10px);min-width:560px;background:rgba(10,21,38,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);box-shadow:0 24px 64px -16px rgba(0,0,0,.6);padding:22px 24px 0;opacity:0;visibility:hidden;pointer-events:none;transition:all .26s cubic-bezier(.4,0,.2,1)}
+.nav-item:hover .mega,.nav-item:focus-within .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.mega-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 18px}
+.mega-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.mega-col{padding-bottom:16px}
+.mega-col+.mega-col{border-left:1px solid rgba(255,255,255,.08);padding-left:18px}
+.mega-head{font-size:11px;color:var(--gold);letter-spacing:.2em;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.mega-head::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,165,92,.4),transparent)}
+.mega-item{display:flex;gap:12px;padding:10px 12px;border-radius:var(--r-md);transition:background .2s;cursor:pointer;align-items:flex-start}
+.mega-item:hover{background:rgba(91,147,227,.12)}
+.mi-ico{width:34px;height:34px;border-radius:8px;background:rgba(91,147,227,.14);color:var(--blue-2);display:flex;align-items:center;justify-content:center;flex:none;transition:all .2s}
+.mega-item:hover .mi-ico{background:var(--blue);color:#fff}
+.mi-ico .ico{width:17px;height:17px}
+.mi-name{color:#EAF0FA;font-size:13.5px;font-weight:600;line-height:1.35;display:flex;align-items:center;gap:6px}
+.mi-desc{color:rgba(255,255,255,.42);font-size:11.5px;margin-top:2px;line-height:1.5}
+.mi-lock{font-size:9px;color:var(--gold);border:1px solid rgba(201,165,92,.4);border-radius:3px;padding:0 4px;line-height:1.5;font-weight:400}
+.mega-foot{margin:0 -24px;padding:13px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.45);gap:12px}
+.mega-foot a{color:var(--gold-2);font-weight:600}
+.mega-foot a:hover{text-decoration:underline}
+.nav-actions{display:flex;align-items:center;gap:6px;flex:none;color:#fff}
+.nav-login{height:36px;padding:0 18px;border-radius:6px;background:linear-gradient(135deg,var(--gold),#B78F45);color:#0A1526;font-size:13.5px;font-weight:700;letter-spacing:.05em;transition:all .25s;display:inline-flex;align-items:center;gap:6px}
+.nav-login:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.burger{display:none;color:#fff}
+.notif-pop{position:absolute;top:52px;right:0;width:320px;background:#fff;border-radius:var(--r-lg);box-shadow:var(--sh-md);border:1px solid var(--line);padding:8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .22s;z-index:950}
+.notif-pop.open{opacity:1;visibility:visible;transform:translateY(0)}
+.np-head{padding:10px 12px;font-size:13px;font-weight:700;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+.np-item{display:flex;gap:10px;padding:11px 12px;border-radius:8px;cursor:pointer}
+.np-item:hover{background:var(--bg)}
+.np-item .tag{width:5px;border-radius:3px;background:var(--blue);flex:none}
+.np-item .tag.g{background:var(--gold)}.np-item .tag.t{background:var(--teal)}
+.np-t{font-size:13px;font-weight:600;line-height:1.45;color:var(--ink)}
+.np-d{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+
+/* drawer */
+.drawer-mask{position:fixed;inset:0;background:rgba(6,13,24,.6);z-index:990;opacity:0;visibility:hidden;transition:.3s}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);background:var(--navy-900);z-index:991;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.08)}
+.drawer-mask.open{opacity:1;visibility:visible}
+.drawer.open{transform:none}
+.drawer-head{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08)}
+.drawer-head b{color:#fff;font-size:15px;letter-spacing:.05em}
+.drawer-head button{color:rgba(255,255,255,.7)}
+.drawer-body{flex:1;overflow-y:auto;padding:12px 14px}
+.acc{border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);margin-bottom:10px;overflow:hidden}
+.acc-h{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;color:#EAF0FA;font-size:14.5px;font-weight:600;letter-spacing:.04em}
+.acc-h .ico{width:14px;height:14px;color:var(--gold);transition:transform .25s}
+.acc.open .acc-h .ico{transform:rotate(180deg)}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .3s}
+.acc.open .acc-b{max-height:900px}
+.acc-b a{display:flex;align-items:center;gap:10px;padding:11px 16px 11px 26px;color:rgba(255,255,255,.62);font-size:13.5px;border-top:1px solid rgba(255,255,255,.05);cursor:pointer}
+.acc-b a:hover{color:var(--gold-2);background:rgba(255,255,255,.04)}
+.acc-b a .ico{width:15px;height:15px;opacity:.6}
+.drawer-foot{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08)}
+.drawer-foot .nav-login{width:100%;justify-content:center;height:44px}
+
+/* ============ Hero ============ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--navy-950);overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(rgba(47,111,208,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(47,111,208,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 62% at 50% 46%,#000 30%,transparent 78%);
+  mask-image:radial-gradient(ellipse 75% 62% at 50% 46%,#000 30%,transparent 78%)}
+.hero-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 70% at 50% 40%,transparent 40%,rgba(6,13,24,.72) 100%),linear-gradient(180deg,rgba(6,13,24,.5),transparent 22%,transparent 62%,var(--navy-950) 98%)}
+.hero-hud{position:absolute;font-family:var(--num);font-size:10px;letter-spacing:.22em;color:rgba(140,175,220,.4);pointer-events:none;text-transform:uppercase;line-height:1.9}
+.hud-tl{top:84px;left:36px}.hud-tr{top:84px;right:36px;text-align:right}.hud-bl{bottom:96px;left:36px}.hud-br{bottom:96px;right:36px;text-align:right}
+.hero-hud .live{color:var(--gold);display:inline-flex;align-items:center;gap:6px}
+.hero-hud .live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:130px 24px 40px;max-width:1100px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;gap:10px;margin-bottom:30px;flex-wrap:wrap;justify-content:center}
+.chip{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 15px;border-radius:4px;font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.75);border:1px solid rgba(201,165,92,.35);background:rgba(201,165,92,.07)}
+.chip::before{content:'';width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.hero-title{font-size:clamp(34px,5.2vw,58px);font-weight:800;color:#fff;letter-spacing:.14em;line-height:1.28;text-indent:.14em;background:linear-gradient(180deg,#FFFFFF 55%,#C8D8EE);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:heroIn 1s cubic-bezier(.2,.7,.3,1) both}
+.hero-rule{width:min(560px,72vw);height:1px;margin:26px auto;background:linear-gradient(90deg,transparent,rgba(201,165,92,.65),transparent);position:relative}
+.hero-rule::before,.hero-rule::after{content:'';position:absolute;top:-3.5px;width:8px;height:8px;border:1px solid rgba(201,165,92,.8);transform:rotate(45deg)}
+.hero-rule::before{left:calc(50% - 90px)}.hero-rule::after{right:calc(50% - 90px)}
+.hero-sub{font-size:clamp(15px,1.7vw,21px);color:rgba(226,236,248,.88);letter-spacing:.24em;line-height:2;text-indent:.24em;font-weight:500;animation:heroIn 1s .15s cubic-bezier(.2,.7,.3,1) both}
+.hero-cta{display:flex;gap:16px;justify-content:center;margin-top:44px;animation:heroIn 1s .3s cubic-bezier(.2,.7,.3,1) both;flex-wrap:wrap}
+@keyframes heroIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero-quick{position:relative;z-index:2;max-width:1100px;margin:0 auto 46px;padding:0 24px;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;animation:heroIn 1s .45s both}
+.hq-item{display:flex;flex-direction:column;gap:5px;align-items:center;padding:16px 8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);background:rgba(13,27,48,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .25s}
+.hq-item:hover{border-color:rgba(201,165,92,.55);background:rgba(23,37,60,.75);transform:translateY(-3px)}
+.hq-num{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.2em}
+.hq-name{color:#E8EFF9;font-size:13.5px;font-weight:600;letter-spacing:.06em}
+.scroll-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.3em;display:flex;flex-direction:column;align-items:center;gap:6px;writing-mode:vertical-rl;animation:pulse 2.6s infinite}
+
+/* ============ Stats Band ============ */
+.stats{background:linear-gradient(180deg,var(--navy-950) 0%,var(--navy-900) 30%,#0B1930 100%);padding:64px 0 58px;position:relative;overflow:hidden;border-top:1px solid rgba(201,165,92,.16)}
+.stats::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(91,147,227,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(91,147,227,.045) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+.stats-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:34px;position:relative}
+.stats-head h2{color:#fff;font-size:24px;font-weight:700;letter-spacing:.1em}
+.stats-head p{color:rgba(255,255,255,.4);font-size:12px;letter-spacing:.24em;margin-top:6px;font-family:var(--num)}
+.stats-link{color:var(--gold-2);font-size:13px;display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.stats-link:hover{text-decoration:underline}
+.stats-scene{perspective:1500px;position:relative}
+.stats-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;transform:rotateX(3.5deg);transform-style:preserve-3d}
+.stat-card{position:relative;padding:24px 20px 20px;border-radius:var(--r-md);background:linear-gradient(165deg,rgba(26,46,76,.92),rgba(12,23,42,.95));border:1px solid rgba(120,155,210,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:all .32s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
+.stat-card::after{content:'';position:absolute;right:-28px;top:-28px;width:110px;height:110px;border:1px solid rgba(120,155,210,.12);transform:rotate(45deg)}
+.stat-card:hover{transform:translateY(-8px) rotateX(-2deg);border-color:rgba(201,165,92,.45);box-shadow:0 26px 48px -18px rgba(0,0,0,.6)}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.sc-ico{width:36px;height:36px;border-radius:8px;background:rgba(91,147,227,.13);color:var(--blue-2);display:flex;align-items:center;justify-content:center}
+.sc-ico .ico{width:18px;height:18px}
+.sc-delta{font-size:11px;color:#7ED0A8;background:rgba(46,138,107,.16);padding:2px 7px;border-radius:3px;font-family:var(--num)}
+.sc-num{font-family:var(--num);font-size:clamp(26px,2.6vw,38px);font-weight:700;color:#fff;line-height:1.05}
+.sc-unit{font-size:12px;color:rgba(255,255,255,.45);margin-left:4px;font-weight:400}
+.sc-label{margin-top:8px;color:rgba(255,255,255,.62);font-size:13px;letter-spacing:.1em}
+.sc-bars{display:flex;gap:3px;align-items:flex-end;height:18px;margin-top:14px}
+.sc-bars i{flex:1;background:rgba(91,147,227,.3);border-radius:1px}
+.sc-bars i:last-child{background:var(--gold)}
+.stats-floor{height:70px;margin-top:-6px;background:radial-gradient(60% 100% at 50% 0%,rgba(47,111,208,.14),transparent 75%);pointer-events:none}
+
+/* ============ Sections & Industrial Divider ============ */
+.sec{scroll-margin-top:calc(var(--nav-h) + 8px)}
+.sec-divider{background:linear-gradient(90deg,var(--navy-950),var(--navy-850) 18%,var(--navy-850) 82%,var(--navy-950));border-top:1px solid rgba(201,165,92,.2);border-bottom:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden}
+.sd-inner{display:flex;align-items:center;gap:22px;padding:20px 0;position:relative;z-index:2}
+.sd-num{font-family:var(--num);font-size:44px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(201,165,92,.75);letter-spacing:.04em;line-height:1;flex:none}
+.sd-titles{flex:none}
+.sd-title{color:#fff;font-size:22px;font-weight:700;letter-spacing:.12em;line-height:1.3}
+.sd-en{color:rgba(201,165,92,.66);font-size:10.5px;letter-spacing:.3em;font-family:var(--num);margin-top:3px;text-transform:uppercase}
+.sd-ruler{flex:1;height:16px;position:relative;min-width:60px;background:
+  repeating-linear-gradient(90deg,rgba(201,165,92,.28) 0 1px,transparent 1px 12px),
+  repeating-linear-gradient(90deg,rgba(201,165,92,.55) 0 1px,transparent 1px 60px);
+  background-size:100% 8px,100% 15px;background-repeat:no-repeat;background-position:bottom left,bottom left}
+.sd-ruler::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(201,165,92,.4)}
+.sd-more{flex:none;display:inline-flex;align-items:center;gap:7px;color:var(--gold-2);font-size:13px;font-weight:600;letter-spacing:.08em;padding:9px 18px;border:1px solid rgba(201,165,92,.4);border-radius:4px;transition:all .25s;cursor:pointer}
+.sd-more:hover{background:rgba(201,165,92,.12);border-color:var(--gold)}
+.sd-more .ico{width:14px;height:14px}
+.sec-body{padding:56px 0 64px;background:var(--bg)}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:28px;flex-wrap:wrap}
+.sec-title{font-size:20px;font-weight:700;letter-spacing:.06em;display:flex;align-items:center;gap:12px}
+.sec-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,var(--blue),var(--gold));border-radius:2px}
+.tabs{display:inline-flex;gap:6px;background:#E9EEF5;border-radius:8px;padding:4px;flex-wrap:wrap}
+.tab{height:34px;padding:0 16px;border-radius:6px;font-size:13.5px;font-weight:500;color:var(--ink-2);transition:all .22s}
+.tab:hover{color:var(--ink)}
+.tab.active{background:#fff;color:var(--ink);font-weight:700;box-shadow:var(--sh-sm)}
+
+/* ============ Cards ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-sm);transition:all .28s cubic-bezier(.4,0,.2,1);position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--line-2)}
+.badge{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:.03em}
+.b-mil{background:var(--blue-t);color:var(--blue-d)}
+.b-ven{background:var(--teal-t);color:#1E6B50}
+.b-uni{background:var(--purple-t);color:#57449B}
+.b-joint{background:var(--gold-t);color:var(--gold-d)}
+.pri{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:3px;font-size:11.5px;font-weight:700;font-family:var(--num);letter-spacing:.04em}
+.pri-0{background:var(--red-t);color:var(--red)}
+.pri-1{background:var(--amber-t);color:#9A6A15}
+.pri-2{background:var(--teal-t);color:var(--teal)}
+.pri-3{background:var(--blue-t);color:var(--blue-d)}
+.st{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:4px;font-size:12px;font-weight:600}
+.st::before{content:'';width:6px;height:6px;border-radius:50%}
+.st-open{background:var(--blue-t);color:var(--blue-d)}.st-open::before{background:var(--blue)}
+.st-run{background:var(--teal-t);color:var(--teal)}.st-run::before{background:var(--teal);animation:pulse 2s infinite}
+.st-review{background:var(--amber-t);color:#9A6A15}.st-review::before{background:var(--amber)}
+.st-done{background:var(--gold-t);color:var(--gold-d)}.st-done::before{background:var(--gold)}
+.st-soon{background:#EDF0F5;color:var(--ink-3)}.st-soon::before{background:var(--ink-3)}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;background:#EFF3F8;color:var(--ink-2);border-radius:4px;font-size:12px;transition:all .2s}
+.tag:hover{background:var(--blue-t);color:var(--blue-d)}
+.meta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink-3)}
+.meta .ico{width:14px;height:14px;opacity:.7}
+.cover{position:relative;border-radius:var(--r-lg) var(--r-lg) 0 0;height:150px;overflow:hidden;background:linear-gradient(140deg,var(--navy-800),var(--navy-950) 70%)}
+.cover::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(91,147,227,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,147,227,.07) 1px,transparent 1px);background-size:28px 28px}
+.cover::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,165,92,.5),transparent)}
+.cover-ico{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:rgba(140,180,235,.4)}
+.cover-ico .ico{width:64px;height:64px}
+.cover .corner{position:absolute;width:14px;height:14px;border-color:rgba(201,165,92,.55);border-style:solid;border-width:0}
+.cover .c-tl{top:10px;left:10px;border-top-width:1.5px;border-left-width:1.5px}
+.cover .c-br{bottom:10px;right:10px;border-bottom-width:1.5px;border-right-width:1.5px}
+.cover-tag{position:absolute;top:12px;left:14px;z-index:2}
+
+/* ============ Projects ============ */
+.p-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.p-feat{grid-column:span 2;display:flex;overflow:hidden}
+.p-feat .pf-cover{width:42%;flex:none;position:relative;background:linear-gradient(140deg,#15304F,var(--navy-950) 75%);border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.p-feat .pf-body{flex:1;padding:24px 26px;display:flex;flex-direction:column}
+.pf-body h4{font-size:17px;font-weight:700;line-height:1.5;margin:10px 0 8px}
+.pf-body p{font-size:13px;color:var(--ink-2);line-height:1.75}
+.pf-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 14px}
+.pfm{background:linear-gradient(160deg,#F7FAFD,#F0F4F9);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.pfm b{font-family:var(--num);font-size:20px;color:var(--blue-d);display:block}
+.pfm span{font-size:11.5px;color:var(--ink-3)}
+.pf-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pf-org{font-size:12px;color:var(--ink-3)}
+.p-card{padding:20px 22px;display:flex;flex-direction:column;cursor:pointer}
+.p-card .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.p-card h4{font-size:15px;font-weight:700;line-height:1.55;margin:12px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.p-card p{font-size:12.5px;color:var(--ink-2);line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.p-metas{display:flex;flex-wrap:wrap;gap:8px 14px;margin:14px 0 12px;padding-top:12px;border-top:1px dashed var(--line)}
+.p-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.p-org{font-size:12px;color:var(--ink-3);display:inline-flex;align-items:center;gap:6px}
+.p-org .ico{width:13px;height:13px}
+.link-arrow{font-size:13px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px;transition:gap .2s;cursor:pointer;white-space:nowrap}
+.link-arrow:hover{gap:8px}
+.p-cta{border:1.5px dashed var(--line-2);background:#FBFCFE;border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;transition:all .25s;min-height:180px}
+.p-cta:hover{border-color:var(--blue);background:var(--blue-t)}
+.p-cta .ico{width:30px;height:30px;color:var(--blue)}
+.p-cta b{font-size:15px;color:var(--blue-d)}
+.p-cta span{font-size:12px;color:var(--ink-3)}
+
+/* ============ Challenge ============ */
+.tk-banner{display:flex;align-items:stretch;gap:0;background:linear-gradient(120deg,var(--navy-900) 0%,#10263F 55%,#15304F 100%);border-radius:var(--r-lg);overflow:hidden;margin-bottom:24px;border:1px solid rgba(120,155,210,.2)}
+.tb-main{flex:1;padding:30px 34px}
+.tb-tagrow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.tb-tagrow .badge{background:rgba(201,165,92,.14);color:var(--gold-2);border:1px solid rgba(201,165,92,.35)}
+.tb-tagrow .st{background:rgba(46,138,107,.15);color:#6FCFA6}
+.tk-banner h3{color:#fff;font-size:22px;font-weight:700;letter-spacing:.04em;margin-bottom:10px}
+.tk-banner .tb-desc{color:rgba(230,240,252,.65);font-size:13.5px;line-height:1.8;max-width:640px}
+.tb-meta{display:flex;gap:26px;margin-top:18px;flex-wrap:wrap}
+.tb-meta .m b{display:block;font-family:var(--num);color:var(--gold-2);font-size:20px;font-weight:700}
+.tb-meta .m span{color:rgba(255,255,255,.45);font-size:11.5px;letter-spacing:.08em}
+.tb-side{width:250px;flex:none;border-left:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:26px;background:rgba(6,13,24,.35)}
+.cd-label{color:rgba(255,255,255,.45);font-size:11px;letter-spacing:.28em}
+.cd{font-family:var(--num);font-size:26px;font-weight:700;color:#fff;letter-spacing:.06em}
+.cd i{font-style:normal;color:var(--gold)}
+.tk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tk-card{padding:20px 22px;display:flex;flex-direction:column;cursor:pointer}
+.tk-amt{font-family:var(--num);font-size:26px;font-weight:700;color:var(--gold-d);line-height:1}
+.tk-amt span{font-size:12px;color:var(--ink-3);font-weight:400;margin-left:2px}
+.tk-card h4{font-size:15px;font-weight:700;line-height:1.55;margin:12px 0 6px}
+.tk-info{font-size:12px;color:var(--ink-3);line-height:1.7}
+.tk-foot{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tk-bid{font-size:12px;color:var(--ink-3)}
+.tk-bid b{color:var(--blue-d);font-family:var(--num);font-size:15px}
+.mini-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.mini-card{display:flex;gap:14px;align-items:center;padding:18px 20px}
+.mc-ico{width:44px;height:44px;border-radius:10px;background:linear-gradient(150deg,var(--gold-t),#F3E7CB);color:var(--gold-d);display:flex;align-items:center;justify-content:center;flex:none}
+.mc-ico .ico{width:22px;height:22px}
+.mini-card b{font-size:14px;display:block;line-height:1.4}
+.mini-card span{font-size:12px;color:var(--ink-3)}
+.mini-card .mc-val{margin-left:auto;font-family:var(--num);font-size:22px;font-weight:700;color:var(--teal);flex:none}
+
+/* ============ Events ============ */
+.ev-banner{display:grid;grid-template-columns:1.15fr 1fr;border-radius:var(--r-lg);overflow:hidden;margin-bottom:22px;background:linear-gradient(120deg,var(--navy-900),#15304F);border:1px solid rgba(120,155,210,.2)}
+.evb-left{padding:34px 38px;position:relative}
+.evb-left .lvl{display:inline-flex;align-items:center;gap:7px;color:var(--gold-2);font-size:12px;letter-spacing:.24em;font-weight:700;border:1px solid rgba(201,165,92,.45);padding:5px 13px;border-radius:3px}
+.evb-left h3{color:#fff;font-size:26px;font-weight:800;letter-spacing:.08em;margin:16px 0 10px}
+.evb-left p{color:rgba(230,240,252,.62);font-size:13.5px;line-height:1.8;max-width:520px}
+.evb-stats{display:flex;gap:30px;margin-top:20px;flex-wrap:wrap}
+.evb-stats .m b{display:block;font-family:var(--num);color:var(--gold-2);font-size:22px;font-weight:700}
+.evb-stats .m span{color:rgba(255,255,255,.45);font-size:11.5px;letter-spacing:.06em}
+.evb-right{position:relative;background:linear-gradient(150deg,#132A48,var(--navy-950));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:30px;border-left:1px solid rgba(255,255,255,.08)}
+.evb-cd{font-family:var(--num);font-size:30px;font-weight:700;color:#fff}
+.evb-cd i{font-style:normal;color:var(--gold)}
+.ev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ev-card{display:flex;flex-direction:column;overflow:hidden;cursor:pointer}
+.ev-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.ev-body h4{font-size:15px;font-weight:700;margin:10px 0 6px;line-height:1.5}
+.ev-body p{font-size:12.5px;color:var(--ink-2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-steps{display:flex;gap:4px;margin-top:14px}
+.ev-step{flex:1;height:5px;border-radius:3px;background:#E6EBF2}
+.ev-step.done{background:var(--blue)}
+.ev-step.now{background:var(--gold)}
+.ev-steps-label{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-3);margin-top:6px}
+.ev-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ============ Cases ============ */
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.case-card{display:flex;flex-direction:column;overflow:hidden;cursor:pointer}
+.case-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.case-body h4{font-size:15.5px;font-weight:700;line-height:1.55;margin:10px 0 8px}
+.case-body p{font-size:13px;color:var(--ink-2);line-height:1.75;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.case-metric{display:flex;align-items:center;gap:10px;margin:14px 0;background:linear-gradient(90deg,var(--gold-t),transparent);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 6px 6px 0}
+.case-metric b{font-family:var(--num);font-size:17px;color:var(--gold-d)}
+.case-metric span{font-size:12px;color:var(--ink-2)}
+.case-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:12px}
+
+/* ============ Talent ============ */
+.t-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.ts-item{display:flex;align-items:center;gap:16px;padding:20px 22px}
+.ts-ico{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.ts-ico .ico{width:22px;height:22px}
+.ts-item b{font-family:var(--num);font-size:26px;font-weight:700;display:block;line-height:1.15}
+.ts-item span{font-size:12.5px;color:var(--ink-3)}
+.t-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+.t-panel{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-sm)}
+.t-panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.t-panel-head b{font-size:16px;letter-spacing:.04em}
+.t-list{padding:8px}
+.job-item{display:flex;gap:14px;align-items:flex-start;padding:16px 14px;border-radius:var(--r-md);transition:background .2s;cursor:pointer}
+.job-item:hover{background:var(--bg)}
+.j-main{flex:1;min-width:0}
+.j-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.j-org{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.j-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.j-side{text-align:right;flex:none}
+.j-salary{font-family:var(--num);font-size:16px;font-weight:700;color:var(--gold-d)}
+.j-match{font-size:11px;color:var(--ink-3);margin-top:6px}
+.talent-item{display:flex;gap:14px;padding:16px 14px;border-radius:var(--r-md);transition:background .2s;cursor:pointer}
+.talent-item:hover{background:var(--bg)}
+.avatar{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff}
+.av-0{background:linear-gradient(140deg,#4A7BC4,#2F5CA8)}.av-1{background:linear-gradient(140deg,#8A6FD0,#6A55B8)}.av-2{background:linear-gradient(140deg,#4FB693,#2E8A6B)}
+.talent-item b{font-size:14.5px}
+.talent-item .lv{font-size:10.5px;font-family:var(--num);color:var(--gold-d);background:var(--gold-t);border-radius:3px;padding:1px 6px;margin-left:6px;font-weight:700}
+.talent-item .sch{font-size:12px;color:var(--ink-3);margin:2px 0 8px}
+.t-cta{margin-top:14px;padding:18px 22px;background:linear-gradient(120deg,var(--navy-900),#12253F);border-radius:var(--r-lg);display:flex;justify-content:space-between;align-items:center;color:#fff;gap:14px;flex-wrap:wrap}
+.t-cta b{font-size:15px;letter-spacing:.06em}
+.t-cta span{display:block;font-size:12px;color:rgba(255,255,255,.5);margin-top:3px;font-weight:400}
+
+/* ============ Ecosystem ============ */
+.eco-row{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-sm);padding:18px 22px;margin-bottom:16px}
+.eco-row-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eco-row-head .ico{width:16px;height:16px}
+.eco-row-head b{font-size:14px;letter-spacing:.06em}
+.eco-row-head .cnt{margin-left:auto;font-family:var(--num);font-size:12px;color:var(--ink-3)}
+.eco-row-head .cnt b{color:var(--blue-d);font-size:14px;margin:0 2px}
+.logo-wall{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.logo-tile{height:44px;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;color:var(--ink-2);letter-spacing:.03em;background:linear-gradient(180deg,#fff,#F7F9FC);transition:all .22s;cursor:default;overflow:hidden;padding:0 6px;white-space:nowrap}
+.logo-tile:hover{border-color:var(--blue);color:var(--blue-d);transform:translateY(-2px);box-shadow:var(--sh-sm)}
+.logo-more{border-style:dashed;border-color:var(--gold);color:var(--gold-d);background:var(--gold-t);font-family:var(--num);font-weight:700}
+.eco-panels{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.ep-card{padding:20px;display:flex;flex-direction:column}
+.ep-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ep-head .ico{width:17px;height:17px}
+.ep-head b{font-size:14.5px;letter-spacing:.04em}
+.ep-head .link-arrow{margin-left:auto;font-size:12px}
+.bar-row{display:grid;grid-template-columns:52px 1fr 34px;align-items:center;gap:10px;margin-bottom:11px;font-size:12px}
+.bar-row .n{color:var(--ink-2)}
+.bar-row .v{font-family:var(--num);color:var(--ink-3);text-align:right}
+.bo{height:6px;background:#EDF1F6;border-radius:3px;overflow:hidden}
+.bo i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--blue-2));width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.ep-card.in .bo i{width:var(--w)}
+.chipset{display:flex;flex-wrap:wrap;gap:7px}
+.chipset .grp{width:100%;font-size:11px;color:var(--ink-3);letter-spacing:.1em;margin-top:6px}
+.chipset .grp:first-child{margin-top:0}
+.cs-chip{height:26px;padding:0 11px;border-radius:4px;font-size:12px;display:inline-flex;align-items:center;background:#EFF3F8;color:var(--ink-2);border:1px solid transparent;transition:all .2s;cursor:pointer}
+.cs-chip:hover{background:var(--teal-t);color:#1E6B50;border-color:rgba(46,138,107,.3)}
+.chain{display:flex;flex-direction:column;gap:0}
+.chain .ch{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:12.5px;color:var(--ink-2)}
+.chain .ch b{width:56px;flex:none;font-size:11.5px;color:var(--gold-d);letter-spacing:.06em}
+.chain .ch .arr{width:12px;height:12px;color:var(--ink-3);opacity:.5;flex:none}
+.expert{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.expert:last-child{border-bottom:none}
+.expert .avatar{width:38px;height:38px;font-size:13px}
+.expert .ex-t b{font-size:13.5px;display:block}
+.expert .ex-t span{font-size:11.5px;color:var(--ink-3)}
+.expert .btn{margin-left:auto}
+
+/* ============ Footer ============ */
+.footer{background:var(--navy-950);color:rgba(255,255,255,.55);border-top:1px solid rgba(201,165,92,.18)}
+.f-main{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding:56px 0 44px}
+.f-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.f-brand strong{color:#fff;font-size:16px;letter-spacing:.08em}
+.f-about{font-size:13px;line-height:1.9;color:rgba(255,255,255,.42);max-width:360px}
+.f-badges{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.f-badge{font-size:11px;padding:4px 12px;border:1px solid rgba(255,255,255,.14);border-radius:3px;letter-spacing:.1em;color:rgba(255,255,255,.5)}
+.f-col h5{color:#fff;font-size:14px;letter-spacing:.14em;margin-bottom:18px;font-weight:600}
+.f-col a{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;color:rgba(255,255,255,.45);transition:color .2s;cursor:pointer}
+.f-col a:hover{color:var(--gold-2)}
+.f-col a .ico{width:13px;height:13px;opacity:.5}
+.f-contact p{display:flex;gap:10px;font-size:13px;padding:6px 0;align-items:flex-start}
+.f-contact .ico{width:15px;height:15px;margin-top:4px;opacity:.5;flex:none}
+.f-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;display:flex;justify-content:space-between;gap:14px;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;letter-spacing:.04em}
+
+/* ============ Module Page ============ */
+.module-page{min-height:100vh;background:var(--bg);padding:calc(var(--nav-h) + 36px) 0 80px}
+.mp-crumb{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-3);margin-bottom:26px}
+.mp-crumb a:hover{color:var(--blue)}
+.mp-crumb .sep{opacity:.5}
+.mp-hero{background:linear-gradient(120deg,var(--navy-900),#12283F 70%);border-radius:var(--r-lg);padding:38px 40px;color:#fff;position:relative;overflow:hidden;border:1px solid rgba(120,155,210,.18);margin-bottom:26px}
+.mp-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(91,147,227,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,147,227,.05) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(70% 100% at 80% 0,#000,transparent 80%);mask-image:radial-gradient(70% 100% at 80% 0,#000,transparent 80%)}
+.mp-zone{display:inline-flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.2em;color:var(--gold-2);border:1px solid rgba(201,165,92,.4);padding:5px 14px;border-radius:3px;margin-bottom:16px}
+.mp-hero h1{font-size:30px;font-weight:800;letter-spacing:.06em}
+.mp-hero .en{font-family:var(--num);font-size:12px;letter-spacing:.3em;color:rgba(255,255,255,.35);margin-top:6px;text-transform:uppercase}
+.mp-hero p{margin-top:16px;font-size:14px;line-height:1.9;color:rgba(230,240,252,.68);max-width:760px}
+.mp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;position:relative}
+.mp-kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:14px 18px;backdrop-filter:blur(6px)}
+.mp-kpi b{font-family:var(--num);font-size:22px;color:var(--gold-2);display:block}
+.mp-kpi span{font-size:12px;color:rgba(255,255,255,.5)}
+.mp-sec-title{font-size:18px;font-weight:700;letter-spacing:.08em;margin:34px 0 18px;display:flex;align-items:center;gap:12px}
+.mp-sec-title::before{content:'';width:4px;height:18px;background:linear-gradient(180deg,var(--blue),var(--gold));border-radius:2px}
+.mp-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.mf-card{padding:24px;display:flex;gap:16px;align-items:flex-start}
+.mf-ico{width:42px;height:42px;border-radius:10px;background:var(--blue-t);color:var(--blue-d);display:flex;align-items:center;justify-content:center;flex:none}
+.mf-ico .ico{width:20px;height:20px}
+.mf-card b{font-size:15px;display:block;margin-bottom:6px}
+.mf-card p{font-size:13px;color:var(--ink-2);line-height:1.75}
+.mp-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.mp-note{margin-top:22px;font-size:12.5px;color:var(--ink-3);background:#EEF2F7;border-radius:8px;padding:12px 16px;display:flex;gap:10px;align-items:flex-start}
+.mp-note .ico{width:15px;height:15px;flex:none;margin-top:3px;color:var(--blue)}
+
+/* ============ Cockpit ============ */
+.cockpit{position:fixed;inset:0;z-index:1200;background:#050B14;overflow-y:auto;overscroll-behavior:contain}
+.cockpit::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(47,111,208,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(47,111,208,.035) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.cp-head{position:sticky;top:0;z-index:5;height:62px;background:rgba(6,13,24,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,165,92,.22);display:flex;align-items:center;gap:18px;padding:0 26px}
+.cp-back{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.75);font-size:13.5px;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.16);border-radius:6px;transition:all .2s}
+.cp-back:hover{border-color:var(--gold);color:var(--gold-2)}
+.cp-title{text-align:center;flex:1}
+.cp-title h1{color:#fff;font-size:19px;font-weight:800;letter-spacing:.3em}
+.cp-title p{font-family:var(--num);font-size:10px;letter-spacing:.34em;color:rgba(201,165,92,.6);margin-top:1px}
+.cp-clock{text-align:right;font-family:var(--num)}
+.cp-clock .t{color:#fff;font-size:19px;font-weight:700;letter-spacing:.08em}
+.cp-clock .d{color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.14em}
+.cp-live{display:inline-flex;align-items:center;gap:7px;color:#6FCFA6;font-size:12px;letter-spacing:.2em;font-weight:700}
+.cp-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#2E8A6B;animation:pulse 1.6s infinite}
+.cp-body{position:relative;z-index:1;padding:24px 26px 40px;max-width:1560px;margin:0 auto}
+.cp-kpis{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:linear-gradient(165deg,rgba(20,38,64,.85),rgba(10,20,36,.9));border:1px solid rgba(120,155,210,.14);border-radius:var(--r-md);padding:14px 16px}
+.kpi span{font-size:11.5px;color:rgba(255,255,255,.45);letter-spacing:.08em;display:block}
+.kpi b{font-family:var(--num);font-size:24px;color:#fff;font-weight:700;display:block;margin-top:6px;line-height:1.1}
+.kpi .up{color:#7ED0A8;font-size:11px;font-family:var(--num);margin-left:6px}
+.cp-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.cp-card{background:linear-gradient(170deg,rgba(18,35,60,.72),rgba(10,20,36,.86));border:1px solid rgba(120,155,210,.14);border-radius:var(--r-lg);padding:18px 20px;min-width:0}
+.cp-card h3{color:#E8EFF9;font-size:14.5px;font-weight:600;letter-spacing:.1em;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.cp-card h3::before{content:'';width:3px;height:14px;background:var(--gold);border-radius:2px}
+.cp-card h3 .sub{margin-left:auto;font-family:var(--num);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.2em;font-weight:400}
+.chart{width:100%;height:250px}
+.span-8{grid-column:span 8}.span-6{grid-column:span 6}.span-5{grid-column:span 5}.span-4{grid-column:span 4}.span-3{grid-column:span 3}
+.chart-fb{height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px;color:rgba(255,255,255,.35);font-size:12px;align-items:center;text-align:center;padding:20px}
+.board{display:flex;flex-direction:column;gap:13px;margin-top:4px}
+.board-row .bh{display:flex;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.6);margin-bottom:6px}
+.board-row .bh b{font-family:var(--num);color:#fff}
+.board-row .bo{height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.board-row .bo i{display:block;height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.cp-feed{display:flex;flex-direction:column;gap:2px;max-height:250px;overflow:hidden;position:relative}
+.feed-item{display:flex;gap:10px;padding:8px 6px;border-bottom:1px dashed rgba(255,255,255,.06);animation:feedIn .5s cubic-bezier(.2,.7,.3,1)}
+@keyframes feedIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.feed-item .fi-t{font-family:var(--num);font-size:11px;color:var(--gold);flex:none;padding-top:2px}
+.feed-item p{font-size:12px;color:rgba(255,255,255,.66);line-height:1.55}
+.feed-item p b{color:#9FC2EE;font-weight:600}
+.cp-note{margin-top:16px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.25);letter-spacing:.2em;font-family:var(--num)}
+
+/* ============ Modals / Toast / Search ============ */
+.modal-mask{position:fixed;inset:0;z-index:1100;background:rgba(6,13,24,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;visibility:hidden;transition:all .28s}
+.modal-mask.open{opacity:1;visibility:visible}
+.modal{background:#fff;border-radius:16px;width:min(680px,100%);max-height:88vh;overflow-y:auto;box-shadow:0 40px 90px -20px rgba(0,0,0,.5);transform:translateY(20px) scale(.98);transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.modal-mask.open .modal{transform:none}
+.modal-close{position:sticky;top:0;margin-left:auto;display:flex;width:38px;height:38px;align-items:center;justify-content:center;color:var(--ink-3);z-index:5;float:right;background:rgba(255,255,255,.85);border-radius:0 16px 0 10px}
+.modal-close:hover{color:var(--red)}
+.dm-body{padding:6px 30px 30px}
+.dm-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.dm-body h3{font-size:20px;font-weight:800;line-height:1.5;letter-spacing:.02em}
+.dm-org{font-size:13px;color:var(--ink-3);margin-top:6px;display:flex;align-items:center;gap:7px}
+.dm-metas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;background:var(--bg);border-radius:var(--r-md);padding:16px}
+.dm-metas .m span{font-size:11.5px;color:var(--ink-3);display:block;letter-spacing:.06em}
+.dm-metas .m b{font-size:14px;font-weight:700;margin-top:3px;display:block}
+.dm-sec{font-size:14px;font-weight:700;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.dm-sec::before{content:'';width:3px;height:13px;background:var(--gold);border-radius:2px}
+.dm-body p{font-size:13.5px;color:var(--ink-2);line-height:1.85}
+.dm-list li{position:relative;padding:7px 0 7px 22px;font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.dm-list li::before{content:'';position:absolute;left:2px;top:14px;width:7px;height:7px;border:1.5px solid var(--gold);transform:rotate(45deg)}
+.dm-cta{display:flex;gap:12px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.login-modal{width:min(880px,100%);display:grid;grid-template-columns:1fr 1fr;background:var(--navy-900);border-radius:16px;overflow:hidden;border:1px solid rgba(120,155,210,.2);position:relative;transform:translateY(20px) scale(.98);transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.modal-mask.open .login-modal{transform:none}
+.lm-left{padding:44px 42px;position:relative;z-index:2}
+.lm-left h3{color:#fff;font-size:21px;font-weight:700;letter-spacing:.1em}
+.lm-left .s{color:rgba(255,255,255,.4);font-size:12.5px;margin:8px 0 28px;letter-spacing:.05em}
+.lm-field{margin-bottom:16px}
+.lm-field label{display:block;color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.12em;margin-bottom:7px}
+.lm-input{width:100%;height:44px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:#fff;padding:0 14px;transition:all .2s;font-size:14px}
+.lm-input::placeholder{color:rgba(255,255,255,.25)}
+.lm-input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.09)}
+.lm-role{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.lm-role button{height:32px;padding:0 13px;border-radius:6px;border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.6);font-size:12.5px;transition:all .2s}
+.lm-role button.active{border-color:var(--gold);color:var(--gold-2);background:rgba(201,165,92,.1)}
+.lm-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:rgba(255,255,255,.4);margin-bottom:20px}
+.lm-row a:hover{color:var(--gold-2)}
+.lm-left .btn{width:100%;height:46px}
+.lm-tip{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.28);text-align:center;line-height:1.7}
+.lm-right{position:relative;background:linear-gradient(160deg,#12283F,#0A1526);display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:420px}
+.lm-right::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(91,147,227,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,147,227,.05) 1px,transparent 1px);background-size:32px 32px}
+.orb-scene{position:relative;width:230px;height:230px}
+.orb-ring{position:absolute;border-radius:50%;border:1px dashed rgba(120,155,210,.35)}
+.orb-ring.r1{inset:0;animation:spin 26s linear infinite}
+.orb-ring.r2{inset:26px;border-style:solid;border-color:rgba(201,165,92,.3);animation:spin 18s linear infinite reverse}
+.orb-ring.r3{inset:52px;border-color:rgba(91,147,227,.4);animation:spin 34s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orb-core{position:absolute;inset:82px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#5B93E3,#1E4E97 55%,#0D2646);box-shadow:0 0 44px rgba(47,111,208,.45),inset 0 0 22px rgba(140,190,255,.3);animation:orbPulse 3.4s ease-in-out infinite}
+@keyframes orbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.orb-core::after{content:'产教研';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;letter-spacing:.28em;font-weight:700;text-indent:.28em}
+.orb-chip{position:absolute;padding:4px 11px;border-radius:4px;background:rgba(13,27,48,.85);border:1px solid rgba(120,155,210,.3);color:#9FC2EE;font-family:var(--num);font-size:11px;letter-spacing:.1em;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.lm-caption{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:rgba(255,255,255,.35);font-size:11px;letter-spacing:.3em;z-index:2}
+.toast-wrap{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:1300;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+.toast{background:rgba(10,21,38,.94);color:#EAF0FA;font-size:13.5px;padding:12px 22px;border-radius:8px;border:1px solid rgba(201,165,92,.35);box-shadow:0 16px 40px -10px rgba(0,0,0,.5);display:flex;align-items:center;gap:10px;animation:toastIn .32s cubic-bezier(.2,.7,.3,1);backdrop-filter:blur(8px);letter-spacing:.03em}
+.toast .ico{width:16px;height:16px;color:var(--gold)}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+.search-ov{position:fixed;inset:0;z-index:1050;background:rgba(6,13,24,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;justify-content:center;padding-top:16vh;opacity:0;visibility:hidden;transition:.25s}
+.search-ov.open{opacity:1;visibility:visible}
+.search-box{width:min(620px,92vw);position:relative}
+.search-input{width:100%;height:56px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;font-size:16px;padding:0 20px 0 54px}
+.search-input:focus{outline:none;border-color:var(--gold)}
+.search-ico{position:absolute;left:18px;top:19px;color:rgba(255,255,255,.4)}
+.search-hots{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.search-hots span{color:rgba(255,255,255,.35);font-size:12px;letter-spacing:.1em;margin-right:4px}
+.search-hots button{padding:6px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.65);font-size:12.5px;transition:all .2s}
+.search-hots button:hover{border-color:var(--gold);color:var(--gold-2)}
+.search-results{margin-top:18px;max-height:320px;overflow-y:auto}
+.sr-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:14px}
+.sr-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.sr-item .ico{width:15px;height:15px;color:var(--gold);opacity:.7}
+.sr-item small{margin-left:auto;color:rgba(255,255,255,.3);font-size:11px;letter-spacing:.1em}
+
+/* ============ Reveal ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ============ Responsive ============ */
+@media (max-width:1240px){
+  .stats-grid{grid-template-columns:repeat(4,1fr)}
+  .cp-kpis{grid-template-columns:repeat(4,1fr)}
+  .logo-wall{grid-template-columns:repeat(6,1fr)}
+  .ev-grid{grid-template-columns:repeat(2,1fr)}
+  .eco-panels{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:1080px){
+  .nav-menu{display:none}
+  .burger{display:inline-flex}
+  .nav-login{display:none}
+  .hero-quick{grid-template-columns:repeat(3,1fr)}
+  .p-bento{grid-template-columns:repeat(2,1fr)}
+  .p-feat{grid-column:span 2;flex-direction:column}
+  .p-feat .pf-cover{width:100%;height:140px;border-radius:var(--r-lg) var(--r-lg) 0 0}
+  .tk-grid{grid-template-columns:repeat(2,1fr)}
+  .case-grid{grid-template-columns:repeat(2,1fr)}
+  .t-layout{grid-template-columns:1fr}
+  .mp-feats{grid-template-columns:1fr}
+  .span-8,.span-6,.span-5{grid-column:span 12}
+  .span-4,.span-3{grid-column:span 6}
+  .f-main{grid-template-columns:1fr 1fr;gap:32px}
+  .mega{display:none}
+}
+@media (max-width:720px){
+  .wrap{padding:0 18px}
+  .brand-text span{display:none}
+  .brand-text strong{font-size:13.5px}
+  .hero-quick{grid-template-columns:repeat(2,1fr)}
+  .hud-tl,.hud-tr{display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr);transform:none}
+  .sd-inner{flex-wrap:wrap;gap:12px}
+  .sd-ruler{display:none}
+  .p-bento{grid-template-columns:1fr}
+  .p-feat{grid-column:span 1}
+  .tk-grid,.case-grid,.ev-grid,.eco-panels,.mp-kpis,.t-stats,.mini-strip{grid-template-columns:1fr}
+  .tk-banner{flex-direction:column}
+  .tb-side{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,.08)}
+  .ev-banner{grid-template-columns:1fr}
+  .evb-right{border-left:none;border-top:1px solid rgba(255,255,255,.08)}
+  .job-item{flex-wrap:wrap}
+  .j-side{text-align:left;width:100%;display:flex;gap:16px;align-items:center}
+  .dm-metas{grid-template-columns:1fr 1fr}
+  .cp-kpis{grid-template-columns:repeat(2,1fr)}
+  .span-4,.span-3{grid-column:span 12}
+  .cp-head{padding:0 14px;gap:10px}
+  .cp-title h1{font-size:14px;letter-spacing:.18em}
+  .cp-clock{display:none}
+  .login-modal{grid-template-columns:1fr}
+  .lm-right{display:none}
+  .f-main{grid-template-columns:1fr}
+  .logo-wall{grid-template-columns:repeat(3,1fr)}
+  .stats-head{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+<body>
+<!-- ===== SVG Icon Sprite ===== -->
+<svg style="display:none" aria-hidden="true">
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+<symbol id="i-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-arl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17.5 14.5c2.6.3 4.5 2.2 4.5 5"/></symbol>
+<symbol id="i-build" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M9 12h.01M12 12h.01M15 12h.01M9 9h.01M15 9h.01"/></symbol>
+<symbol id="i-factory" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h17M6 21V11l4 2.5V11l4 2.5V11l4 2.5V21M7 11V6h2v5"/></symbol>
+<symbol id="i-uni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9L12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="10.5" y="10.5" width="3" height="3"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 3M17 6h3a3 3 0 0 1-3 3M12 15v3M8 21h8M10 18h4v3h-4z"/></symbol>
+<symbol id="i-case" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5L16.5 21 15 13.5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></symbol>
+<symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.8 19a2 2 0 0 0 1.8 3h10.8a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 15h9"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13 4l-2 16"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4a2 2 0 0 1 2-2h12v16H7a2 2 0 0 0-2 2V4z"/><path d="M5 20a2 2 0 0 1 2-2h12"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7L12 3z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3.5-4.5L19 16l2-12z"/><path d="M9 13l5-5"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 2 5 6 5 10l3 4-4-1a10 10 0 0 1-8 0l-4 1 3-4c0-4 2-8 5-10z"/><circle cx="12" cy="9" r="1.6"/><path d="M10 16l-2 5 3-2h2l3 2-2-5"/></symbol>
+<symbol id="i-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l1.5 4h13L20 16l-8-2.5L4 16z"/><path d="M12 13.5V6M12 6l4 5M12 8.5l-3 3"/></symbol>
+<symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(45 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-45 12 12)"/></symbol>
+<symbol id="i-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+<symbol id="i-fund" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 8l3.5 4 3.5-4M12 12v5M9.5 13h5M9.5 16h5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+<symbol id="i-net" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2L6 17M12 7.2l6 9.8M7.2 19h9.6"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4c4-2 8 2 14 0v10c-6 2-10-2-14 0"/></symbol>
+<symbol id="i-hex" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9L12 2z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l12 7-12 7V5z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v14c0 1.7 3.1 3 7 3s7-1.3 7-3V5"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+<symbol id="i-radar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+</svg>
+
+<!-- ==================== 门户主站 ==================== -->
+<div id="sitePage">
+
+<!-- ===== 导航栏 ===== -->
+<header class="nav" id="topNav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="返回首页">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M20 2l15 8.5v19L20 38 5 29.5v-19L20 2z" stroke="#C9A55C" stroke-width="1.6"/><path d="M20 8l9.5 5.4v10.8L20 29.6l-9.5-5.4V13.4L20 8z" stroke="#5B93E3" stroke-width="1.2" opacity=".8"/><circle cx="20" cy="18.8" r="3.4" fill="#C9A55C"/><path d="M20 15.4V8M20 22.2v7.4M23 17l6.5-3.6M17 17l-6.5-3.6" stroke="#5B93E3" stroke-width="1.2" opacity=".7"/></svg>
+      </span>
+      <span class="brand-text"><strong>国家国防科技工业软件产教研平台</strong><span>NATIONAL DEFENSE S&amp;T INDUSTRIAL SOFTWARE PLATFORM</span></span>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a class="nav-link active" href="#top">首页</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">人才赋能区 <svg class="ico"><use href="#i-chev"/></svg></a>
+        <div class="mega"><div class="mega-grid">
+          <a class="mega-item" data-mod="course"><span class="mi-ico"><svg class="ico"><use href="#i-book"/></svg></span><div><div class="mi-name">在线课程中心</div><div class="mi-desc">四级分类检索 · 在线学习 · 工程案例库</div></div></a>
+          <a class="mega-item" data-mod="training"><span class="mi-ico"><svg class="ico"><use href="#i-code"/></svg></span><div><div class="mi-name">实训线上教学</div><div class="mi-desc">研发实训 · 应用实训 · L1-L4分级</div></div></a>
+          <a class="mega-item" data-mod="cert"><span class="mi-ico"><svg class="ico"><use href="#i-award"/></svg></span><div><div class="mi-name">考核与认证</div><div class="mi-desc">在线考核 · 人才画像 · 学分证书</div></div></a>
+          <a class="mega-item" data-mod="growth"><span class="mi-ico"><svg class="ico"><use href="#i-trend"/></svg></span><div><div class="mi-name">能力提升</div><div class="mi-desc">课题发布 · 基金指南发布</div></div></a>
+          <a class="mega-item" data-mod="job"><span class="mi-ico"><svg class="ico"><use href="#i-case"/></svg></span><div><div class="mi-name">就业推荐引擎</div><div class="mi-desc">智能匹配 · 双选大厅 · 职业追踪</div></div></a>
+          <a class="mega-item" data-mod="community"><span class="mi-ico"><svg class="ico"><use href="#i-msg"/></svg></span><div><div class="mi-name">答疑与社区</div><div class="mi-desc">技术问答 · 经验分享 · 交流区</div></div></a>
+        </div>
+        <div class="mega-foot"><span>覆盖研发型 / 应用型 / 复合型人才培养全链条</span><a href="javascript:void(0)" data-mod="course">进入人才赋能区</a></div></div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">产业赋能区 <svg class="ico"><use href="#i-chev"/></svg></a>
+        <div class="mega"><div class="mega-grid cols-3">
+          <div class="mega-col"><div class="mega-head">技术服务</div>
+            <a class="mega-item" data-mod="tech"><span class="mi-ico"><svg class="ico"><use href="#i-bolt"/></svg></span><div><div class="mi-name">技术攻关任务管理</div><div class="mi-desc">发布 · 申报 · 执行 · 验收全周期</div></div></a>
+            <a class="mega-item" data-mod="tech"><span class="mi-ico"><svg class="ico"><use href="#i-flask"/></svg></span><div><div class="mi-name">项目孵化服务</div><div class="mi-desc">创意 · 原型 · 产品 · 规模四阶段</div></div></a>
+            <a class="mega-item" data-mod="tech"><span class="mi-ico"><svg class="ico"><use href="#i-send"/></svg></span><div><div class="mi-name">成果转化服务</div><div class="mi-desc">论文到产业化的全链条转化</div></div></a>
+          </div>
+          <div class="mega-col"><div class="mega-head">产品服务</div>
+            <a class="mega-item" data-mod="product"><span class="mi-ico"><svg class="ico"><use href="#i-layers"/></svg></span><div><div class="mi-name">产品发布专栏</div><div class="mi-desc">产品信息 · 手册 · 对标对比</div></div></a>
+            <a class="mega-item" data-mod="product"><span class="mi-ico"><svg class="ico"><use href="#i-eye"/></svg></span><div><div class="mi-name">软件试用窗口</div><div class="mi-desc">以训促推 · 申请 · 反馈全流程</div></div></a>
+            <a class="mega-item" data-mod="product"><span class="mi-ico"><svg class="ico"><use href="#i-target"/></svg></span><div><div class="mi-name">成果转化对接</div><div class="mi-desc">定向转化 · 授权迭代 · 作价入股</div></div></a>
+          </div>
+          <div class="mega-col"><div class="mega-head">产业服务</div>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-flag"/></svg></span><div><div class="mi-name">需求发布门户</div><div class="mi-desc">六类需求常态化征集与发布</div></div></a>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-net"/></svg></span><div><div class="mi-name">供需智能匹配</div><div class="mi-desc">六维匹配模型 · 专家研判</div></div></a>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-users"/></svg></span><div><div class="mi-name">供需专项对接</div><div class="mi-desc">年度 / 专题 / 专项对接会</div></div></a>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-grid"/></svg></span><div><div class="mi-name">项目全生命周期</div><div class="mi-desc">立项 · 执行 · 验收 · 推广</div></div></a>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-shield"/></svg></span><div><div class="mi-name">产业支撑服务</div><div class="mi-desc">政策指导 · 技术评审 · 专家咨询</div></div></a>
+            <a class="mega-item" data-mod="industry"><span class="mi-ico"><svg class="ico"><use href="#i-fund"/></svg></span><div><div class="mi-name">专项基金运营</div><div class="mi-desc">种子 / 攻关 / 转化三类基金</div></div></a>
+          </div>
+        </div>
+        <div class="mega-foot"><span>打通军工单位 · 高校 · 软件厂商三方协同链路</span><a href="javascript:void(0)" data-mod="tech">进入产业赋能区</a></div></div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">生态赋能区 <svg class="ico"><use href="#i-chev"/></svg></a>
+        <div class="mega"><div class="mega-grid">
+          <a class="mega-item" data-mod="policy"><span class="mi-ico"><svg class="ico"><use href="#i-doc"/></svg></span><div><div class="mi-name">顶层政策指导</div><div class="mi-desc">政策发布 · 标准发布与解读</div></div></a>
+          <a class="mega-item" data-mod="activity"><span class="mi-ico"><svg class="ico"><use href="#i-trophy"/></svg></span><div><div class="mi-name">专项活动组织</div><div class="mi-desc">赛事 · 对接会 · 沙龙 · 双选会</div></div></a>
+          <a class="mega-item" data-mod="achieve"><span class="mi-ico"><svg class="ico"><use href="#i-star"/></svg></span><div><div class="mi-name">成果展示</div><div class="mi-desc">高校 / 厂商 / 军工三方成果展厅</div></div></a>
+          <a class="mega-item" data-mod="library"><span class="mi-ico"><svg class="ico"><use href="#i-db"/></svg></span><div><div class="mi-name">成果入库管理</div><div class="mi-desc">八类成果 · 四级审核 · 分级权限</div></div></a>
+          <a class="mega-item" data-mod="news"><span class="mi-ico"><svg class="ico"><use href="#i-radar"/></svg></span><div><div class="mi-name">生态资讯与动态</div><div class="mi-desc">资讯中心 · 月度季度简报</div></div></a>
+          <a class="mega-item" data-mod="partner"><span class="mi-ico"><svg class="ico"><use href="#i-hex"/></svg></span><div><div class="mi-name">生态伙伴联盟</div><div class="mi-desc">成员网络 · 专家风采 · 信用体系</div></div></a>
+        </div>
+        <div class="mega-foot"><span>覆盖生态建设全链条 · 227 家成员单位</span><a href="javascript:void(0)" data-mod="partner">进入生态赋能区</a></div></div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">运营管理区 <svg class="ico"><use href="#i-chev"/></svg></a>
+        <div class="mega"><div class="mega-grid">
+          <a class="mega-item" data-mod="a-user"><span class="mi-ico"><svg class="ico"><use href="#i-user"/></svg></span><div><div class="mi-name">用户与权限管理<span class="mi-lock">内部</span></div><div class="mi-desc">多角色注册认证 · RBAC权限</div></div></a>
+          <a class="mega-item" data-mod="a-data"><span class="mi-ico"><svg class="ico"><use href="#i-grid"/></svg></span><div><div class="mi-name">数据统计与决策<span class="mi-lock">内部</span></div><div class="mi-desc">运营看板 · 专项分析报告</div></div></a>
+          <a class="mega-item" data-mod="a-sec"><span class="mi-ico"><svg class="ico"><use href="#i-lock"/></svg></span><div><div class="mi-name">安全与审计<span class="mi-lock">内部</span></div><div class="mi-desc">审计日志 · 数据脱敏 · 安全告警</div></div></a>
+          <a class="mega-item" data-mod="a-audit"><span class="mi-ico"><svg class="ico"><use href="#i-check"/></svg></span><div><div class="mi-name">内容审核管理<span class="mi-lock">内部</span></div><div class="mi-desc">课程 / 案例 / 成果 / 资讯审核</div></div></a>
+          <a class="mega-item" data-mod="a-msg"><span class="mi-ico"><svg class="ico"><use href="#i-bell"/></svg></span><div><div class="mi-name">消息通知中心<span class="mi-lock">内部</span></div><div class="mi-desc">站内消息 · 多渠道推送</div></div></a>
+        </div>
+        <div class="mega-foot"><span>平台运营基础支撑 · 等保三级</span><a href="javascript:void(0)" data-mod="a-data">进入运营管理区</a></div></div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="搜索"><svg class="ico"><use href="#i-search"/></svg></button>
+      <button class="icon-btn" id="notifBtn" aria-label="消息通知"><svg class="ico"><use href="#i-bell"/></svg><span class="dot"></span></button>
+      <button class="nav-login" id="loginBtn"><svg class="ico" style="width:15px;height:15px"><use href="#i-user"/></svg>登录 / 注册</button>
+      <button class="icon-btn burger" id="burgerBtn" aria-label="菜单"><svg class="ico"><use href="#i-menu"/></svg></button>
+      <div class="notif-pop" id="notifPop">
+        <div class="np-head"><span>消息中心</span><a href="javascript:void(0)" class="link-arrow" style="font-size:12px" data-toast="已标记全部已读">全部已读</a></div>
+        <a class="np-item" data-toast="演示环境：需求详情即将上线"><span class="tag g"></span><div><div class="np-t">您发布的「CAE国产化替代需求」新增 3 家单位响应</div><div class="np-d">10 分钟前 · 需求匹配</div></div></a>
+        <a class="np-item" data-toast="演示环境：评审通知已查看"><span class="tag"></span><div><div class="np-t">「揭榜挂帅」评审会定于 9 月 12 日召开</div><div class="np-d">2 小时前 · 项目进展</div></div></a>
+        <a class="np-item" data-toast="演示环境：报名通道已开启"><span class="tag t"></span><div><div class="np-t">春雷大赛报名进入最后 38 天</div><div class="np-d">昨天 · 活动提醒</div></div></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 移动端抽屉 -->
+<div class="drawer-mask" id="drawerMask"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head"><b>平台导航</b><button id="drawerClose" aria-label="关闭"><svg class="ico"><use href="#i-close"/></svg></button></div>
+  <div class="drawer-body">
+    <div class="acc"><button class="acc-h">人才赋能区 <svg class="ico"><use href="#i-chev"/></svg></button><div class="acc-b">
+      <a data-mod="course"><svg class="ico"><use href="#i-arr"/></svg>在线课程中心</a><a data-mod="training"><svg class="ico"><use href="#i-arr"/></svg>实训线上教学</a><a data-mod="cert"><svg class="ico"><use href="#i-arr"/></svg>考核与认证</a><a data-mod="growth"><svg class="ico"><use href="#i-arr"/></svg>能力提升</a><a data-mod="job"><svg class="ico"><use href="#i-arr"/></svg>就业推荐引擎</a><a data-mod="community"><svg class="ico"><use href="#i-arr"/></svg>答疑与社区</a></div></div>
+    <div class="acc"><button class="acc-h">产业赋能区 <svg class="ico"><use href="#i-chev"/></svg></button><div class="acc-b">
+      <a data-mod="tech"><svg class="ico"><use href="#i-arr"/></svg>技术服务（攻关 / 孵化 / 转化）</a><a data-mod="product"><svg class="ico"><use href="#i-arr"/></svg>产品服务（发布 / 试用 / 对接）</a><a data-mod="industry"><svg class="ico"><use href="#i-arr"/></svg>产业服务（需求 / 匹配 / 基金）</a></div></div>
+    <div class="acc"><button class="acc-h">生态赋能区 <svg class="ico"><use href="#i-chev"/></svg></button><div class="acc-b">
+      <a data-mod="policy"><svg class="ico"><use href="#i-arr"/></svg>顶层政策指导</a><a data-mod="activity"><svg class="ico"><use href="#i-arr"/></svg>专项活动组织</a><a data-mod="achieve"><svg class="ico"><use href="#i-arr"/></svg>成果展示</a><a data-mod="library"><svg class="ico"><use href="#i-arr"/></svg>成果入库管理</a><a data-mod="news"><svg class="ico"><use href="#i-arr"/></svg>生态资讯与动态</a><a data-mod="partner"><svg class="ico"><use href="#i-arr"/></svg>生态伙伴联盟</a></div></div>
+    <div class="acc"><button class="acc-h">运营管理区 <svg class="ico"><use href="#i-chev"/></svg></button><div class="acc-b">
+      <a data-mod="a-user"><svg class="ico"><use href="#i-arr"/></svg>用户与权限管理</a><a data-mod="a-data"><svg class="ico"><use href="#i-arr"/></svg>数据统计与决策支持</a><a data-mod="a-sec"><svg class="ico"><use href="#i-arr"/></svg>安全与审计</a><a data-mod="a-audit"><svg class="ico"><use href="#i-arr"/></svg>内容审核管理</a><a data-mod="a-msg"><svg class="ico"><use href="#i-arr"/></svg>消息通知中心</a></div></div>
+    <div class="acc"><button class="acc-h" data-go-cockpit style="color:var(--gold-2)">数字智能运营驾驶舱 <svg class="ico"><use href="#i-grid"/></svg></button></div>
+  </div>
+  <div class="drawer-foot"><button class="nav-login" data-open-login>登录 / 注册</button></div>
+</aside>
+
+<main id="top">
+
+<!-- ===== 首页主视觉 ===== -->
+<section class="hero" id="hero">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-vig"></div>
+  <div class="hero-hud hud-tl">NATIONAL PLATFORM<br>SYS · ONLINE</div>
+  <div class="hero-hud hud-tr"><span class="live">SECURE LINK</span><br>N39°54′ E116°23′</div>
+  <div class="hero-hud hud-bl">INDUSTRIAL SOFTWARE<br>EDA / CAD / CAE / CAM</div>
+  <div class="hero-hud hud-br">产教研融合 · 自主可控<br>2026</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="chip">国家级平台</span><span class="chip">国防科技工业</span><span class="chip">自主可控</span>
+    </div>
+    <h1 class="hero-title">国家一流产教研融合示范平台</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">聚焦国防领域军工工业软件自主可控发展需求<br>打造国防科技工业软件人才高地、创新策源地</p>
+    <div class="hero-cta">
+      <button class="btn btn-gold btn-lg" data-go-cockpit><svg class="ico"><use href="#i-grid"/></svg>进入数字驾驶舱</button>
+      <a class="btn btn-ghost btn-lg" href="#secProjects"><svg class="ico"><use href="#i-arr"/></svg>了解平台业务</a>
+    </div>
+  </div>
+  <div class="hero-quick">
+    <a class="hq-item" href="#secProjects"><span class="hq-num">01</span><span class="hq-name">军工软件攻坚项目</span></a>
+    <a class="hq-item" href="#secChallenge"><span class="hq-num">02</span><span class="hq-name">揭榜挂帅挑战任务</span></a>
+    <a class="hq-item" href="#secEvents"><span class="hq-num">03</span><span class="hq-name">全国工软赛事</span></a>
+    <a class="hq-item" href="#secCases"><span class="hq-num">04</span><span class="hq-name">优质典型行业案例</span></a>
+    <a class="hq-item" href="#secTalent"><span class="hq-num">05</span><span class="hq-name">人才供需大厅</span></a>
+    <a class="hq-item" href="#secEco"><span class="hq-num">06</span><span class="hq-name">生态联盟风采</span></a>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ===== 横贯式数字卡片 ===== -->
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="stats-head reveal">
+      <div><h2>平台运行数据</h2><p>PLATFORM OPERATIONS · REALTIME</p></div>
+      <a class="stats-link" href="javascript:void(0)" data-go-cockpit>进入数字智能运营驾驶舱 <svg class="ico" style="width:15px;height:15px"><use href="#i-arr"/></svg></a>
+    </div>
+    <div class="stats-scene">
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-shield"/></svg></span><span class="sc-delta">+2</span></div><div><span class="sc-num num" data-count="12">0</span><span class="sc-unit">家</span></div><div class="sc-label">军工集团</div><div class="sc-bars"><i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:66%"></i><i style="height:78%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-factory"/></svg></span><span class="sc-delta">+9</span></div><div><span class="sc-num num" data-count="86">0</span><span class="sc-unit">家</span></div><div class="sc-label">软件厂商</div><div class="sc-bars"><i style="height:34%"></i><i style="height:46%"></i><i style="height:58%"></i><i style="height:52%"></i><i style="height:72%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-uni"/></svg></span><span class="sc-delta">+5</span></div><div><span class="sc-num num" data-count="43">0</span><span class="sc-unit">所</span></div><div class="sc-label">高等院校</div><div class="sc-bars"><i style="height:44%"></i><i style="height:38%"></i><i style="height:56%"></i><i style="height:64%"></i><i style="height:60%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-users"/></svg></span><span class="sc-delta">+1,204</span></div><div><span class="sc-num num" data-count="28647">0</span><span class="sc-unit">人</span></div><div class="sc-label">平台用户</div><div class="sc-bars"><i style="height:30%"></i><i style="height:42%"></i><i style="height:50%"></i><i style="height:62%"></i><i style="height:82%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-chip"/></svg></span><span class="sc-delta">+18</span></div><div><span class="sc-num num" data-count="326">0</span><span class="sc-unit">款</span></div><div class="sc-label">工业软件</div><div class="sc-bars"><i style="height:36%"></i><i style="height:48%"></i><i style="height:44%"></i><i style="height:58%"></i><i style="height:76%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-flask"/></svg></span><span class="sc-delta">+6</span></div><div><span class="sc-num num" data-count="57">0</span><span class="sc-unit">项</span></div><div class="sc-label">项目孵化</div><div class="sc-bars"><i style="height:42%"></i><i style="height:36%"></i><i style="height:54%"></i><i style="height:50%"></i><i style="height:68%"></i><i style="height:100%"></i></div></div>
+        <div class="stat-card reveal" data-go-cockpit><div class="sc-top"><span class="sc-ico"><svg class="ico"><use href="#i-send"/></svg></span><span class="sc-delta">+21</span></div><div><span class="sc-num num" data-count="142">0</span><span class="sc-unit">项</span></div><div class="sc-label">成果转化</div><div class="sc-bars"><i style="height:28%"></i><i style="height:40%"></i><i style="height:46%"></i><i style="height:60%"></i><i style="height:74%"></i><i style="height:100%"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stats-floor"></div>
+</section>
+<!-- ===== 01 军工软件攻坚项目 ===== -->
+<section class="sec" id="secProjects">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">01</span>
+    <div class="sd-titles"><div class="sd-title">军工软件攻坚项目</div><div class="sd-en">Key Breakthrough Projects</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="tech">查看项目库 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-title">项目需求与联合突破</div>
+      <div class="tabs" id="projTabs">
+        <button class="tab active" data-f="all">全部</button>
+        <button class="tab" data-f="mil">军工单位</button>
+        <button class="tab" data-f="ven">软件厂商</button>
+        <button class="tab" data-f="uni">高等院校</button>
+        <button class="tab" data-f="joint">联合突破</button>
+      </div>
+    </div>
+    <div class="p-bento" id="projGrid">
+      <article class="card p-feat reveal" data-src="joint" data-detail="pj0">
+        <div class="pf-cover cover"><span class="cover-ico"><svg class="ico"><use href="#i-layers"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="pf-body">
+          <div class="row"><span class="badge b-joint">联合突破 · 已验证</span><span class="st st-done">推广中</span></div>
+          <h4>自主三维 CAD 几何内核航空结构件设计全流程适配</h4>
+          <p>由软件厂商、航空工业某研究所与高校三方联合攻关，完成自主几何内核在航空结构件正向设计场景的验证与适配，形成可复制推广的国产化替代解决方案。</p>
+          <div class="pf-metrics">
+            <div class="pfm"><b>12 型</b><span>完成型号场景适配</span></div>
+            <div class="pfm"><b>85%</b><span>设计环节替代率</span></div>
+            <div class="pfm"><b>+40%</b><span>设计效率提升</span></div>
+          </div>
+          <div class="pf-foot"><span class="pf-org">中望软件 × 航空工业某所 × 北京航空航天大学</span><span class="link-arrow">查看解决方案 <svg class="ico" style="width:14px;height:14px"><use href="#i-arr"/></svg></span></div>
+        </div>
+      </article>
+      <article class="card p-card reveal" data-src="mil" data-detail="pj1">
+        <div class="row"><span class="badge b-mil">军工单位</span><span class="pri pri-0">P0 紧急</span></div>
+        <h4>航空装备结构仿真 CAE 国产化替代攻关</h4>
+        <p>针对型号结构分析流程中国外 CAE 软件占比逾九成的现状，征集国产 CAE 方案完成多物理场耦合场景全流程替代验证。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-plane"/></svg>航空</span><span class="meta"><svg class="ico"><use href="#i-layers"/></svg>CAE</span><span class="meta"><svg class="ico"><use href="#i-fund"/></svg>800万</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>18个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-build"/></svg>某航空工业集团</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="mil" data-detail="pj2">
+        <div class="row"><span class="badge b-mil">军工单位</span><span class="pri pri-1">P1 重要</span></div>
+        <h4>船体结构强度分析软件二次开发</h4>
+        <p>基于国产 CAE 平台开发船体结构强度评估专用模块，实现波浪载荷工况自动化建模与规范校核。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-ship"/></svg>船舶</span><span class="meta"><svg class="ico"><use href="#i-code"/></svg>二次开发</span><span class="meta"><svg class="ico"><use href="#i-fund"/></svg>300万</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>12个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-build"/></svg>中国船舶集团某研究院</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="mil" data-detail="pj3">
+        <div class="row"><span class="badge b-mil">军工单位</span><span class="pri pri-2">P2 提升</span></div>
+        <h4>弹药装药仿真模型库建设</h4>
+        <p>建设弹药装药冲击起爆仿真标准化模型库，完成脱敏教学化处理，支撑型号验证与实训教学双用途。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-cross"/></svg>兵器</span><span class="meta"><svg class="ico"><use href="#i-flask"/></svg>CAE</span><span class="meta"><svg class="ico"><use href="#i-fund"/></svg>260万</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>10个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-build"/></svg>兵器工业某研究院</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="ven" data-detail="pj4">
+        <div class="row"><span class="badge b-ven">软件厂商</span><span class="pri pri-2">P2 提升</span></div>
+        <h4>军工电子 PCB 设计工具测评认证</h4>
+        <p>面向军工电子产品设计需求，开展国产 EDA 工具链的功能完整性、仿真精度与信创适配第三方测评。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-chip"/></svg>电子</span><span class="meta"><svg class="ico"><use href="#i-shield"/></svg>EDA测评</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>6个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-factory"/></svg>华大九天</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="ven" data-detail="pj5">
+        <div class="row"><span class="badge b-ven">软件厂商</span><span class="pri pri-3">P3 前瞻</span></div>
+        <h4>CAD / CAM 一体化制造验证应用</h4>
+        <p>在兵器装备复杂结构件加工场景中开展国产 CAD/CAM 一体化贯通验证，打通设计到加工的数据链路。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-cross"/></svg>兵器</span><span class="meta"><svg class="ico"><use href="#i-layers"/></svg>CAD/CAM</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>9个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-factory"/></svg>数码大方</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="uni" data-detail="pj6">
+        <div class="row"><span class="badge b-uni">高等院校</span><span class="pri pri-1">P1 重要</span></div>
+        <h4>工业软件研发工具开发课题</h4>
+        <p>围绕三维几何内核根技术发布联合研发课题，攻关大规模装配场景下的内核性能瓶颈。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-atom"/></svg>共性基础</span><span class="meta"><svg class="ico"><use href="#i-code"/></svg>几何内核</span><span class="meta"><svg class="ico"><use href="#i-fund"/></svg>专项课题</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-uni"/></svg>北京航空航天大学</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <article class="card p-card reveal" data-src="uni" data-detail="pj7">
+        <div class="row"><span class="badge b-uni">高等院校</span><span class="pri pri-3">P3 前瞻</span></div>
+        <h4>MBSE 应用工具开发实训项目</h4>
+        <p>面向航天型号总体设计流程，联合开发 MBSE 需求建模教学工具链与配套实训案例集。</p>
+        <div class="p-metas"><span class="meta"><svg class="ico"><use href="#i-rocket"/></svg>航天</span><span class="meta"><svg class="ico"><use href="#i-net"/></svg>MBSE</span><span class="meta"><svg class="ico"><use href="#i-clock"/></svg>8个月</span></div>
+        <div class="p-foot"><span class="p-org"><svg class="ico"><use href="#i-uni"/></svg>哈尔滨工程大学</span><span class="link-arrow">详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div>
+      </article>
+      <div class="p-cta reveal" data-toast="演示环境：需求发布功能即将开放，敬请期待">
+        <svg class="ico"><use href="#i-plus"/></svg><b>发布项目需求</b><span>军工单位 / 软件厂商 / 高等院校均可发布</span>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===== 02 揭榜挂帅挑战任务 ===== -->
+<section class="sec" id="secChallenge">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">02</span>
+    <div class="sd-titles"><div class="sd-title">揭榜挂帅挑战任务</div><div class="sd-en">Open Challenge Tasks</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="tech">查看任务库 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="tk-banner reveal">
+      <div class="tb-main">
+        <div class="tb-tagrow"><span class="badge">根技术攻关 · 年度重点榜</span><span class="st st-run">揭榜中</span></div>
+        <h3>CAE 大规模并行求解器研发</h3>
+        <p class="tb-desc">面向航空装备大规模结构仿真需求，研发支持千核级并行扩展的通用有限元求解器，核心指标对齐国际主流商业求解器，由军工集团出题、攻关基金配套支持。</p>
+        <div class="tb-meta">
+          <div class="m"><b>500 万</b><span>攻关基金支持</span></div>
+          <div class="m"><b>3 家</b><span>已揭榜单位</span></div>
+          <div class="m"><b>P0</b><span>优先级</span></div>
+          <div class="m"><b>24 个月</b><span>攻关周期</span></div>
+        </div>
+      </div>
+      <div class="tb-side">
+        <span class="cd-label">距揭榜截止</span>
+        <div class="cd" data-deadline="2026-09-30T23:59:59+08:00">--</div>
+        <button class="btn btn-gold" data-toast="演示环境：揭榜申请已提交至工作组审核">我要揭榜</button>
+        <a class="link-arrow" style="color:rgba(255,255,255,.6)" data-detail="tk1">查看任务书 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></a>
+      </div>
+    </div>
+    <div class="tk-grid">
+      <article class="card tk-card reveal" data-detail="tk2"><div class="row"><span class="badge b-ven">根技术攻关</span><span class="st st-open">揭榜中</span></div><div style="margin-top:14px"><span class="tk-amt num">300<span>万</span></span></div><h4>EDA 仿真引擎精度与性能提升</h4><p class="tk-info">概伦电子 × 种子基金 · 电路仿真引擎精度对标国际主流工具，攻克收敛性与大规模电路加速难题。</p><div class="tk-foot"><span class="tk-bid"><b>3</b> 家已揭榜</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+      <article class="card tk-card reveal" data-detail="tk3"><div class="row"><span class="badge b-uni">工业软件改进</span><span class="st st-review">评审中</span></div><div style="margin-top:14px"><span class="tk-amt num">200<span>万</span></span></div><h4>CAD 超大装配体加载优化</h4><p class="tk-info">中望软件出题 · 突破十万级零件装配体的轻量化加载与渲染性能瓶颈，支撑型号总体设计。</p><div class="tk-foot"><span class="tk-bid"><b>5</b> 家申报</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+      <article class="card tk-card reveal" data-detail="tk4"><div class="row"><span class="badge b-uni">关键模块开发</span><span class="st st-open">揭榜中</span></div><div style="margin-top:14px"><span class="tk-amt num">150<span>万</span></span></div><h4>MBSE 需求追踪模块开发</h4><p class="tk-info">哈尔滨工程大学出题 · 开发覆盖需求-设计-验证全链路的追溯管理模块，服务航天型号研制。</p><div class="tk-foot"><span class="tk-bid"><b>2</b> 家已揭榜</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+      <article class="card tk-card reveal" data-detail="tk5"><div class="row"><span class="badge b-ven">关键模块开发</span><span class="st st-run">攻坚中</span></div><div style="margin-top:14px"><span class="tk-amt num">120<span>万</span></span></div><h4>仿真数据管理模块开发</h4><p class="tk-info">安世亚太出题 · 构建仿真输入输出数据的版本管理、对比分析与知识沉淀模块。</p><div class="tk-foot"><span class="tk-bid">已立项攻坚</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+      <article class="card tk-card reveal" data-detail="tk6"><div class="row"><span class="badge b-ven">工业软件改进</span><span class="st st-done">已突破</span></div><div style="margin-top:14px"><span class="tk-amt num">180<span>万</span></span></div><h4>CAM 五轴刀轨算法改进</h4><p class="tk-info">华中数控揭榜 · 复杂曲面五轴加工刀轨生成效率提升 60%，已在航空结构件加工中验证。</p><div class="tk-foot"><span class="tk-bid">成果已入库</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+      <article class="card tk-card reveal" data-detail="tk7"><div class="row"><span class="badge b-mil">根技术攻关</span><span class="st st-open">揭榜中</span></div><div style="margin-top:14px"><span class="tk-amt num">450<span>万</span></span></div><h4>电磁仿真求解器多物理场耦合</h4><p class="tk-info">军工集团出题 · 攻克电磁-结构-热多物理场耦合求解难题，服务雷达与天线系统设计。</p><div class="tk-foot"><span class="tk-bid"><b>1</b> 家已揭榜</span><span class="link-arrow">任务详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></article>
+    </div>
+    <div class="mini-strip">
+      <div class="card mini-card reveal"><span class="mc-ico"><svg class="ico"><use href="#i-trend"/></svg></span><div><b>求解器收敛速度</b><span>索辰科技 · 湍流求解器优化</span></div><span class="mc-val">+35%</span></div>
+      <div class="card mini-card reveal"><span class="mc-ico"><svg class="ico"><use href="#i-target"/></svg></span><div><b>器件建模精度</b><span>概伦电子 · 对标国际工具</span></div><span class="mc-val">98%</span></div>
+      <div class="card mini-card reveal"><span class="mc-ico"><svg class="ico"><use href="#i-layers"/></svg></span><div><b>云端协同装配规模</b><span>华天软件 · CrownCAD</span></div><span class="mc-val">10万+</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===== 03 全国工软赛事 ===== -->
+<section class="sec" id="secEvents">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">03</span>
+    <div class="sd-titles"><div class="sd-title">全国工软赛事</div><div class="sd-en">National Contests</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="activity">查看赛事库 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="ev-banner reveal">
+      <div class="evb-left">
+        <span class="lvl">国家级 · 品牌赛事</span>
+        <h3>第二届「春雷大赛」国防工业软件创新大赛</h3>
+        <p>面向全国军工单位、软件厂商与高等院校征集工业软件创新成果，设根技术突破、行业应用创新、实训教学创新三大赛道，优秀团队直通产教研专项基金支持。</p>
+        <div class="evb-stats">
+          <div class="m"><b>500 万</b><span>奖金池</span></div>
+          <div class="m"><b>1,286</b><span>已报名队伍</span></div>
+          <div class="m"><b>3</b><span>赛道设置</span></div>
+          <div class="m"><b>86</b><span>协办单位</span></div>
+        </div>
+      </div>
+      <div class="evb-right">
+        <span class="cd-label">距报名截止</span>
+        <div class="evb-cd" data-deadline="2026-09-30T23:59:59+08:00">--</div>
+        <button class="btn btn-gold btn-lg" data-toast="演示环境：大赛报名通道即将开放">立即报名</button>
+        <a class="link-arrow" style="color:rgba(255,255,255,.55)" data-detail="ev1">大赛章程 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></a>
+      </div>
+    </div>
+    <div class="ev-grid">
+      <article class="card ev-card reveal" data-detail="ev2">
+        <div class="cover"><span class="cover-tag badge b-ven">行业级</span><span class="cover-ico"><svg class="ico"><use href="#i-flask"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="ev-body"><div class="row" style="display:flex;justify-content:space-between"><span class="st st-run">初赛进行中</span><span class="meta"><svg class="ico"><use href="#i-users"/></svg>426 队</span></div><h4>「天元杯」CAE 数值仿真创新赛</h4><p>聚焦国产 CAE 平台上的工程仿真创新应用，覆盖结构、流体、电磁多物理场方向。</p>
+        <div class="ev-steps"><span class="ev-step done"></span><span class="ev-step now"></span><span class="ev-step"></span><span class="ev-step"></span></div><div class="ev-steps-label"><span>报名</span><span>初赛</span><span>复赛</span><span>决赛</span></div>
+        <div class="ev-foot"><span class="meta"><svg class="ico"><use href="#i-cal"/></svg>2026.07 - 12</span><span class="link-arrow">赛事详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></div>
+      </article>
+      <article class="card ev-card reveal" data-detail="ev3">
+        <div class="cover"><span class="cover-tag badge b-ven">行业级</span><span class="cover-ico"><svg class="ico"><use href="#i-chip"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="ev-body"><div class="row" style="display:flex;justify-content:space-between"><span class="st st-open">报名中</span><span class="meta"><svg class="ico"><use href="#i-users"/></svg>312 队</span></div><h4>「昆仑杯」EDA 创新设计大赛</h4><p>面向军工电子方向，考察国产 EDA 工具链上的模拟电路与版图自动化设计能力。</p>
+        <div class="ev-steps"><span class="ev-step now"></span><span class="ev-step"></span><span class="ev-step"></span><span class="ev-step"></span></div><div class="ev-steps-label"><span>报名</span><span>初赛</span><span>复赛</span><span>决赛</span></div>
+        <div class="ev-foot"><span class="meta"><svg class="ico"><use href="#i-cal"/></svg>2026.09 - 2027.03</span><span class="link-arrow">赛事详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></div>
+      </article>
+      <article class="card ev-card reveal" data-detail="ev4">
+        <div class="cover"><span class="cover-tag badge b-mil">行业级</span><span class="cover-ico"><svg class="ico"><use href="#i-cross"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="ev-body"><div class="row" style="display:flex;justify-content:space-between"><span class="st st-soon">即将启动</span><span class="meta"><svg class="ico"><use href="#i-cal"/></svg>10月启动</span></div><h4>「铸剑杯」军工数字化建模大赛</h4><p>围绕装备数字化正向设计，比拼基于国产 CAD/MBSE 工具的总体建模与协同设计能力。</p>
+        <div class="ev-steps"><span class="ev-step"></span><span class="ev-step"></span><span class="ev-step"></span><span class="ev-step"></span></div><div class="ev-steps-label"><span>报名</span><span>初赛</span><span>复赛</span><span>决赛</span></div>
+        <div class="ev-foot"><span class="meta"><svg class="ico"><use href="#i-cal"/></svg>2026.10 - 2027.05</span><span class="link-arrow">赛事详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></div>
+      </article>
+      <article class="card ev-card reveal" data-detail="ev5">
+        <div class="cover"><span class="cover-tag badge b-uni">行业级</span><span class="cover-ico"><svg class="ico"><use href="#i-factory"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="ev-body"><div class="row" style="display:flex;justify-content:space-between"><span class="st st-open">报名中</span><span class="meta"><svg class="ico"><use href="#i-users"/></svg>208 队</span></div><h4>全国工业软件「智造」创新大赛</h4><p>面向智能制造场景，征集基于国产工业软件的数字孪生与智能产线创新应用方案。</p>
+        <div class="ev-steps"><span class="ev-step now"></span><span class="ev-step"></span><span class="ev-step"></span><span class="ev-step"></span></div><div class="ev-steps-label"><span>报名</span><span>初赛</span><span>复赛</span><span>决赛</span></div>
+        <div class="ev-foot"><span class="meta"><svg class="ico"><use href="#i-cal"/></svg>2026.09 - 2027.01</span><span class="link-arrow">赛事详情 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></span></div></div>
+      </article>
+    </div>
+  </div></div>
+</section>
+<!-- ===== 04 优质典型行业案例 ===== -->
+<section class="sec" id="secCases">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">04</span>
+    <div class="sd-titles"><div class="sd-title">优质典型行业案例</div><div class="sd-en">Industry Best Practices</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="achieve">查看案例库 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-title">三方优秀实践</div>
+      <div class="tabs" id="caseTabs">
+        <button class="tab active" data-f="m">军工场景应用</button>
+        <button class="tab" data-f="p">产品全生命周期</button>
+        <button class="tab" data-f="t">人才培养经验</button>
+      </div>
+    </div>
+    <div class="case-grid" id="caseGrid">
+      <article class="card case-card reveal" data-ct="m" data-detail="cs1">
+        <div class="cover"><span class="cover-tag badge b-mil">军工场景 · 脱敏</span><span class="cover-ico"><svg class="ico"><use href="#i-plane"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>某航空集团结构仿真全流程国产化应用</h4><p>以某型部件研制为对象，将建模、前处理、求解、后处理全流程迁移至国产 CAE 平台，建立与试验数据的对标基线，形成可复制的迁移方法论。</p>
+        <div class="case-metric"><b>85%</b><span>全流程国产化覆盖率，仿真周期缩短三分之一</span></div>
+        <div class="case-tags"><span class="tag">航空</span><span class="tag">CAE</span><span class="tag">替代验证</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="m" data-detail="cs2">
+        <div class="cover"><span class="cover-tag badge b-mil">军工场景 · 脱敏</span><span class="cover-ico"><svg class="ico"><use href="#i-ship"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>船舶某院船体结构仿真平台迁移实践</h4><p>历时 14 个月完成国外结构分析软件的国产平台整体迁移，沉淀波浪载荷自动化脚本库与规范校核模板，实现型号任务的常态化国产化应用。</p>
+        <div class="case-metric"><b>14 个月</b><span>整体迁移周期，70 余种国外软件压缩至 9 种</span></div>
+        <div class="case-tags"><span class="tag">船舶</span><span class="tag">二次开发</span><span class="tag">平台迁移</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="m" data-detail="cs3">
+        <div class="cover"><span class="cover-tag badge b-mil">军工场景 · 脱敏</span><span class="cover-ico"><svg class="ico"><use href="#i-cross"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>兵器某院弹药装药仿真教学化实践</h4><p>将军工真实仿真场景经四级脱敏审查后转化为实训教学案例，配套模型数据包与操作指导，实现「型号验证」与「实训教学」双用途复用。</p>
+        <div class="case-metric"><b>23 个</b><span>脱敏教学案例入库，覆盖 6 型装备场景</span></div>
+        <div class="case-tags"><span class="tag">兵器</span><span class="tag">脱敏教学</span><span class="tag">案例复用</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="p" data-detail="cs4">
+        <div class="cover"><span class="cover-tag badge b-ven">全生命周期</span><span class="cover-ico"><svg class="ico"><use href="#i-flask"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>国产 CAE 平台 PERA SIM 成长之路</h4><p>从需求定义、架构设计、研发测试到军工场景验证与规模化推广的全寿命周期实践，展示一款国产工业软件从可用走向好用的完整路径。</p>
+        <div class="case-metric"><b>8 年</b><span>全流程研发周期，装机量突破 3,000 套</span></div>
+        <div class="case-tags"><span class="tag">CAE</span><span class="tag">产品化</span><span class="tag">规模化推广</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="p" data-detail="cs5">
+        <div class="cover"><span class="cover-tag badge b-ven">全生命周期</span><span class="cover-ico"><svg class="ico"><use href="#i-layers"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>自主几何内核的三维 CAD 正向设计转型</h4><p>以自主几何内核为根，完成从「替代追赶」到「正向设计」的产品战略转型，建立与高校联合的根技术持续演进机制。</p>
+        <div class="case-metric"><b>2 代</b><span>自主内核迭代，航空场景验证 12 个型号</span></div>
+        <div class="case-tags"><span class="tag">CAD</span><span class="tag">几何内核</span><span class="tag">正向设计</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="p" data-detail="cs6">
+        <div class="cover"><span class="cover-tag badge b-ven">全生命周期</span><span class="cover-ico"><svg class="ico"><use href="#i-net"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>云端 CAD 协同设计平台工程化落地</h4><p>基于云原生架构的 CAD 协同平台在复杂装备联合设计中的工程化实践，支撑多院所跨地域并行设计与数据安全管控。</p>
+        <div class="case-metric"><b>10万+</b><span>单装配体零件承载能力，5 地协同验证</span></div>
+        <div class="case-tags"><span class="tag">云端CAD</span><span class="tag">协同设计</span><span class="tag">云原生</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="t" data-detail="cs7">
+        <div class="cover"><span class="cover-tag badge b-uni">人才培养</span><span class="cover-ico"><svg class="ico"><use href="#i-uni"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>「双师制」工业软件课程体系建设</h4><p>高校教师与军工总师、厂商研发总监共同授课，课程内容对接真实型号场景，形成「课程-实训-认证-就业」贯通培养范式。</p>
+        <div class="case-metric"><b>96%</b><span>对口就业率，首届毕业生 112 人入职军工单位</span></div>
+        <div class="case-tags"><span class="tag">双师制</span><span class="tag">课程体系</span><span class="tag">贯通培养</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="t" data-detail="cs8">
+        <div class="cover"><span class="cover-tag badge b-uni">人才培养</span><span class="cover-ico"><svg class="ico"><use href="#i-rocket"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>MBSE 方向本硕贯通培养实践</h4><p>依托航天型号需求设立 MBSE 方向，本科打基础、硕士进项目，学生直接参与型号总体设计工具链的实训课题。</p>
+        <div class="case-metric"><b>3 届</b><span>累计培养 216 人，L3 以上认证率达 78%</span></div>
+        <div class="case-tags"><span class="tag">MBSE</span><span class="tag">本硕贯通</span><span class="tag">型号课题</span></div></div>
+      </article>
+      <article class="card case-card reveal" data-ct="t" data-detail="cs9">
+        <div class="cover"><span class="cover-tag badge b-uni">人才培养</span><span class="cover-ico"><svg class="ico"><use href="#i-chip"/></svg></span><span class="corner c-tl"></span><span class="corner c-br"></span></div>
+        <div class="case-body"><h4>EDA 菁英班校企共建模式</h4><p>高校与 EDA 厂商共建菁英班，厂商提供工具链与真实工程数据，高校负责理论教学，实现毕业即上岗的无缝衔接。</p>
+        <div class="case-metric"><b>100%</b><span>首届学员全部获得厂商与军工双认可认证</span></div>
+        <div class="case-tags"><span class="tag">EDA</span><span class="tag">菁英班</span><span class="tag">校企共建</span></div></div>
+      </article>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===== 05 人才供需大厅 ===== -->
+<section class="sec" id="secTalent">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">05</span>
+    <div class="sd-titles"><div class="sd-title">人才供需大厅</div><div class="sd-en">Talent Supply Hub</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="job">进入就业推荐引擎 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="t-stats reveal">
+      <div class="card ts-item"><span class="ts-ico" style="background:var(--blue-t);color:var(--blue-d)"><svg class="ico"><use href="#i-case"/></svg></span><div><b class="num">386</b><span>在招就业岗位</span></div></div>
+      <div class="card ts-item"><span class="ts-ico" style="background:var(--teal-t);color:var(--teal)"><svg class="ico"><use href="#i-clock"/></svg></span><div><b class="num">214</b><span>实习岗位</span></div></div>
+      <div class="card ts-item"><span class="ts-ico" style="background:var(--purple-t);color:var(--purple)"><svg class="ico"><use href="#i-users"/></svg></span><div><b class="num">2,340</b><span>求职人才</span></div></div>
+      <div class="card ts-item"><span class="ts-ico" style="background:var(--gold-t);color:var(--gold-d)"><svg class="ico"><use href="#i-check"/></svg></span><div><b class="num">156</b><span>本月签约</span></div></div>
+    </div>
+    <div class="t-layout">
+      <div class="t-panel reveal">
+        <div class="t-panel-head"><b>岗位需求</b>
+          <div class="tabs" id="jobTabs"><button class="tab active" data-f="j">就业岗位</button><button class="tab" data-f="i">实习岗位</button></div>
+        </div>
+        <div class="t-list" id="jobList">
+          <a class="job-item" data-detail="jb1" data-jt="j"><div class="j-main"><div class="j-title">CAE 仿真工程师 <span class="badge b-mil">军工单位</span></div><div class="j-org">某航空工业研究所 · 北京</div><div class="j-tags"><span class="tag">硕士+</span><span class="tag">L3认证</span><span class="tag">结构仿真</span></div></div><div class="j-side"><div class="j-salary">25-40K·14薪</div><div class="j-match">匹配度 <b style="color:var(--teal)">92%</b></div></div></a>
+          <a class="job-item" data-detail="jb2" data-jt="j"><div class="j-main"><div class="j-title">EDA 算法工程师 <span class="badge b-ven">软件厂商</span></div><div class="j-org">华大九天 · 上海</div><div class="j-tags"><span class="tag">博士优先</span><span class="tag">电路仿真</span><span class="tag">C++</span></div></div><div class="j-side"><div class="j-salary">30-50K·15薪</div><div class="j-match">匹配度 <b style="color:var(--teal)">88%</b></div></div></a>
+          <a class="job-item" data-detail="jb3" data-jt="j"><div class="j-main"><div class="j-title">CAD 二次开发工程师 <span class="badge b-ven">软件厂商</span></div><div class="j-org">中望软件 · 广州</div><div class="j-tags"><span class="tag">本科+</span><span class="tag">几何内核</span><span class="tag">L2认证</span></div></div><div class="j-side"><div class="j-salary">20-35K·13薪</div><div class="j-match">匹配度 <b style="color:var(--teal)">85%</b></div></div></a>
+          <a class="job-item" data-detail="jb4" data-jt="j"><div class="j-main"><div class="j-title">数字孪生工程师 <span class="badge b-mil">军工单位</span></div><div class="j-org">中国电科某研究所 · 成都</div><div class="j-tags"><span class="tag">硕士+</span><span class="tag">MBSE</span><span class="tag">建模仿真</span></div></div><div class="j-side"><div class="j-salary">22-38K·14薪</div><div class="j-match">匹配度 <b style="color:var(--teal)">81%</b></div></div></a>
+          <a class="job-item" data-detail="jb5" data-jt="i"><div class="j-main"><div class="j-title">结构仿真实习生 <span class="badge b-mil">军工单位</span></div><div class="j-org">兵器工业某研究院 · 西安</div><div class="j-tags"><span class="tag">硕一以上</span><span class="tag">CAE实操</span><span class="tag">可转正</span></div></div><div class="j-side"><div class="j-salary">300-400/天</div><div class="j-match">匹配度 <b style="color:var(--teal)">90%</b></div></div></a>
+          <a class="job-item" data-detail="jb6" data-jt="i"><div class="j-main"><div class="j-title">EDA 测试实习生 <span class="badge b-ven">软件厂商</span></div><div class="j-org">概伦电子 · 上海</div><div class="j-tags"><span class="tag">本科大三+</span><span class="tag">工具链测试</span></div></div><div class="j-side"><div class="j-salary">280-350/天</div><div class="j-match">匹配度 <b style="color:var(--teal)">87%</b></div></div></a>
+          <a class="job-item" data-detail="jb7" data-jt="i"><div class="j-main"><div class="j-title">MBSE 助理工程师（实习）<span class="badge b-uni">高校发布</span></div><div class="j-org">哈尔滨工程大学联合团队 · 哈尔滨</div><div class="j-tags"><span class="tag">本科以上</span><span class="tag">需求建模</span></div></div><div class="j-side"><div class="j-salary">面议</div><div class="j-match">匹配度 <b style="color:var(--teal)">84%</b></div></div></a>
+        </div>
+      </div>
+      <div>
+        <div class="t-panel reveal">
+          <div class="t-panel-head"><b>优秀人才</b><a class="link-arrow" style="font-size:12px" data-mod="job">人才库</a></div>
+          <div class="t-list">
+            <a class="talent-item" data-detail="tl1"><span class="avatar av-0">张</span><div style="flex:1"><b>张同学<i class="lv">L4</i></b><div class="sch">北京航空航天大学 · 飞行器设计</div><div class="j-tags"><span class="tag">CAE</span><span class="tag">结构仿真</span><span class="tag">型号项目经历</span></div></div></a>
+            <a class="talent-item" data-detail="tl2"><span class="avatar av-1">李</span><div style="flex:1"><b>李同学<i class="lv">L3</i></b><div class="sch">电子科技大学 · 微电子</div><div class="j-tags"><span class="tag">EDA</span><span class="tag">电路设计</span><span class="tag">菁英班</span></div></div></a>
+            <a class="talent-item" data-detail="tl3"><span class="avatar av-2">王</span><div style="flex:1"><b>王同学<i class="lv">L3</i></b><div class="sch">哈尔滨工程大学 · 船舶工程</div><div class="j-tags"><span class="tag">MBSE</span><span class="tag">总体设计</span><span class="tag">本硕贯通</span></div></div></a>
+          </div>
+        </div>
+        <div class="t-cta reveal">
+          <div><b>双向选择大厅</b><span>每周五线上双选会 · 简历直投 · 在线签约</span></div>
+          <button class="btn btn-gold" data-mod="job">进入大厅</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===== 06 生态联盟风采 ===== -->
+<section class="sec" id="secEco">
+  <div class="sec-divider"><div class="wrap sd-inner">
+    <span class="sd-num">06</span>
+    <div class="sd-titles"><div class="sd-title">生态联盟风采</div><div class="sd-en">Ecosystem Alliance</div></div>
+    <div class="sd-ruler"></div>
+    <a class="sd-more" data-mod="partner">查看联盟全景 <svg class="ico"><use href="#i-arr"/></svg></a>
+  </div></div>
+  <div class="sec-body"><div class="wrap">
+    <div class="eco-row reveal">
+      <div class="eco-row-head" style="color:var(--blue-d)"><svg class="ico"><use href="#i-shield"/></svg><b>军工集团</b><span class="cnt">共 <b>12</b> 家成员</span></div>
+      <div class="logo-wall">
+        <span class="logo-tile">航空工业</span><span class="logo-tile">航天科技</span><span class="logo-tile">航天科工</span><span class="logo-tile">兵器工业</span><span class="logo-tile">兵器装备</span><span class="logo-tile">中国船舶</span><span class="logo-tile">中国电科</span><span class="logo-tile logo-more">+4</span>
+      </div>
+    </div>
+    <div class="eco-row reveal">
+      <div class="eco-row-head" style="color:var(--teal)"><svg class="ico"><use href="#i-factory"/></svg><b>软件厂商</b><span class="cnt">共 <b>86</b> 家成员</span></div>
+      <div class="logo-wall">
+        <span class="logo-tile">华大九天</span><span class="logo-tile">中望软件</span><span class="logo-tile">安世亚太</span><span class="logo-tile">索辰科技</span><span class="logo-tile">概伦电子</span><span class="logo-tile">华天软件</span><span class="logo-tile">数码大方</span><span class="logo-tile logo-more">+78</span>
+      </div>
+    </div>
+    <div class="eco-row reveal">
+      <div class="eco-row-head" style="color:var(--purple)"><svg class="ico"><use href="#i-uni"/></svg><b>高等院校</b><span class="cnt">共 <b>43</b> 所成员</span></div>
+      <div class="logo-wall">
+        <span class="logo-tile">北京航空航天大学</span><span class="logo-tile">哈尔滨工业大学</span><span class="logo-tile">西北工业大学</span><span class="logo-tile">北京理工大学</span><span class="logo-tile">哈尔滨工程大学</span><span class="logo-tile">电子科技大学</span><span class="logo-tile logo-more">+37</span>
+      </div>
+    </div>
+    <div class="eco-panels">
+      <div class="card ep-card reveal">
+        <div class="ep-head" style="color:var(--blue-d)"><svg class="ico"><use href="#i-radar"/></svg><b>军工能力图谱</b><a class="link-arrow" data-mod="partner">详情</a></div>
+        <div class="bar-row"><span class="n">航空</span><div class="bo"><i style="--w:92%"></i></div><span class="v">92</span></div>
+        <div class="bar-row"><span class="n">航天</span><div class="bo"><i style="--w:84%"></i></div><span class="v">84</span></div>
+        <div class="bar-row"><span class="n">船舶</span><div class="bo"><i style="--w:76%"></i></div><span class="v">76</span></div>
+        <div class="bar-row"><span class="n">兵器</span><div class="bo"><i style="--w:71%"></i></div><span class="v">71</span></div>
+        <div class="bar-row"><span class="n">电子</span><div class="bo"><i style="--w:88%"></i></div><span class="v">88</span></div>
+        <div class="bar-row"><span class="n">核</span><div class="bo"><i style="--w:58%"></i></div><span class="v">58</span></div>
+        <p style="font-size:11.5px;color:var(--ink-3);margin-top:10px">按六大军工领域需求热度指数呈现</p>
+      </div>
+      <div class="card ep-card reveal">
+        <div class="ep-head" style="color:var(--teal)"><svg class="ico"><use href="#i-layers"/></svg><b>厂商产品谱系</b><a class="link-arrow" data-mod="partner">详情</a></div>
+        <div class="chipset">
+          <span class="grp">EDA</span><span class="cs-chip">模拟电路设计</span><span class="cs-chip">时序分析</span><span class="cs-chip">器件建模</span>
+          <span class="grp">CAD / CAM</span><span class="cs-chip">三维建模</span><span class="cs-chip">云端协同</span><span class="cs-chip">五轴加工</span>
+          <span class="grp">CAE</span><span class="cs-chip">结构求解</span><span class="cs-chip">流体求解</span><span class="cs-chip">电磁求解</span>
+          <span class="grp">MBSE</span><span class="cs-chip">系统建模</span><span class="cs-chip">需求追踪</span>
+        </div>
+      </div>
+      <div class="card ep-card reveal">
+        <div class="ep-head" style="color:var(--purple)"><svg class="ico"><use href="#i-book"/></svg><b>高校教学体系</b><a class="link-arrow" data-mod="partner">详情</a></div>
+        <div class="chain">
+          <div class="ch"><b>学科</b>工业软件交叉学科方向<svg class="ico arr"><use href="#i-arr"/></svg></div>
+          <div class="ch"><b>课程</b>理论方法课 + 实践实操课<svg class="ico arr"><use href="#i-arr"/></svg></div>
+          <div class="ch"><b>实训</b>L1-L4 分级实训案例集<svg class="ico arr"><use href="#i-arr"/></svg></div>
+          <div class="ch"><b>认证</b>四级证书联合签章体系<svg class="ico arr"><use href="#i-arr"/></svg></div>
+          <div class="ch"><b>就业</b>军工单位与厂商定向输送</div>
+        </div>
+      </div>
+      <div class="card ep-card reveal">
+        <div class="ep-head" style="color:var(--gold-d)"><svg class="ico"><use href="#i-star"/></svg><b>领域专家风采</b><a class="link-arrow" data-mod="partner">专家库</a></div>
+        <div class="expert"><span class="avatar av-0">陈</span><div class="ex-t"><b>陈院士</b><span>力学 · 求解器方向</span></div><button class="btn btn-sm btn-line" data-toast="演示环境：专家预约已提交">预约</button></div>
+        <div class="expert"><span class="avatar av-1">刘</span><div class="ex-t"><b>刘总师</b><span>航空型号 · CAE 应用</span></div><button class="btn btn-sm btn-line" data-toast="演示环境：专家预约已提交">预约</button></div>
+        <div class="expert"><span class="avatar av-2">赵</span><div class="ex-t"><b>赵总监</b><span>EDA 研发 · 根技术</span></div><button class="btn btn-sm btn-line" data-toast="演示环境：专家预约已提交">预约</button></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+</main>
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-main">
+      <div>
+        <div class="f-brand">
+          <svg width="34" height="34" viewBox="0 0 40 40" fill="none"><path d="M20 2l15 8.5v19L20 38 5 29.5v-19L20 2z" stroke="#C9A55C" stroke-width="1.6"/><circle cx="20" cy="20" r="4" fill="#C9A55C"/></svg>
+          <strong>国家国防科技工业软件产教研平台</strong>
+        </div>
+        <p class="f-about">集资源汇聚、业务协同、信息发布、人才评价、业务流转于一体的全国工业软件产教研线上综合服务枢纽，以「人才赋能—产业赋能—生态赋能」三大赋能区为核心架构，构建人才链、技术链、产业链良性闭环体系。</p>
+        <div class="f-badges"><span class="f-badge">等保三级</span><span class="f-badge">信创兼容</span><span class="f-badge">国产密码</span></div>
+      </div>
+      <div class="f-col"><h5>人才赋能区</h5>
+        <a data-mod="course"><svg class="ico"><use href="#i-arr"/></svg>在线课程中心</a>
+        <a data-mod="training"><svg class="ico"><use href="#i-arr"/></svg>实训线上教学</a>
+        <a data-mod="cert"><svg class="ico"><use href="#i-arr"/></svg>考核与认证</a>
+        <a data-mod="growth"><svg class="ico"><use href="#i-arr"/></svg>能力提升</a>
+        <a data-mod="job"><svg class="ico"><use href="#i-arr"/></svg>就业推荐引擎</a>
+        <a data-mod="community"><svg class="ico"><use href="#i-arr"/></svg>答疑与社区</a>
+      </div>
+      <div class="f-col"><h5>产业 / 生态赋能区</h5>
+        <a data-mod="tech"><svg class="ico"><use href="#i-arr"/></svg>技术服务</a>
+        <a data-mod="product"><svg class="ico"><use href="#i-arr"/></svg>产品服务</a>
+        <a data-mod="industry"><svg class="ico"><use href="#i-arr"/></svg>产业服务</a>
+        <a data-mod="achieve"><svg class="ico"><use href="#i-arr"/></svg>成果展示</a>
+        <a data-mod="partner"><svg class="ico"><use href="#i-arr"/></svg>生态伙伴联盟</a>
+      </div>
+      <div class="f-col f-contact"><h5>联系我们</h5>
+        <p><svg class="ico"><use href="#i-pin"/></svg>地址：××××××（占位）</p>
+        <p><svg class="ico"><use href="#i-msg"/></svg>邮箱：service@example.cn</p>
+        <p><svg class="ico"><use href="#i-shield"/></svg>涉密信息严禁上传，数据实行三级分级管控</p>
+        <a style="color:var(--gold-2);font-weight:600" data-go-cockpit><svg class="ico"><use href="#i-grid"/></svg>数字智能运营驾驶舱</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 国家国防科技工业软件产教研平台 · 版权所有</span>
+      <span>京ICP备×××××××号-1 · 京公网安备×××××××号</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<!-- ==================== 模块页 ==================== -->
+<div id="modulePage" class="module-page hidden"><div class="wrap" id="moduleWrap"></div></div>
+
+<!-- ==================== 数字智能运营驾驶舱 ==================== -->
+<div id="cockpitPage" class="cockpit" hidden>
+  <div class="cp-head">
+    <button class="cp-back" id="cpBack"><svg class="ico" style="width:15px;height:15px"><use href="#i-arl"/></svg>返回门户</button>
+    <div class="cp-title"><h1>数字智能运营驾驶舱</h1><p>DIGITAL INTELLIGENCE OPERATIONS CENTER</p></div>
+    <div style="display:flex;align-items:center;gap:18px">
+      <span class="cp-live">LIVE</span>
+      <div class="cp-clock"><div class="t" id="cpClock">--:--:--</div><div class="d" id="cpDate">----</div></div>
+    </div>
+  </div>
+  <div class="cp-body">
+    <div class="cp-kpis" id="cpKpis">
+      <div class="kpi"><span>在线用户</span><b class="num" data-kpi="1284">1,284</b></div>
+      <div class="kpi"><span>今日新增需求</span><b class="num" data-kpi="12">12</b></div>
+      <div class="kpi"><span>待匹配需求</span><b class="num" data-kpi="86">86</b></div>
+      <div class="kpi"><span>对接成功率</span><b class="num" data-kpi="76.3" data-fix="1" data-suffix="%">76.3%</b></div>
+      <div class="kpi"><span>攻关任务（累计）</span><b class="num" data-kpi="78">78</b></div>
+      <div class="kpi"><span>在孵项目</span><b class="num" data-kpi="57">57</b></div>
+      <div class="kpi"><span>入库成果</span><b class="num" data-kpi="1530">1,530</b></div>
+      <div class="kpi"><span>基金拨付（万元）</span><b class="num" data-kpi="8600">8,600</b></div>
+    </div>
+    <div class="cp-grid">
+      <div class="cp-card span-8"><h3>供需对接趋势<span class="sub">LAST 30 DAYS</span></h3><div class="chart" id="chTrend"></div></div>
+      <div class="cp-card span-4"><h3>国产化替代进程<span class="sub">OVERALL RATE</span></h3><div class="chart" id="chGauge"></div></div>
+      <div class="cp-card span-4"><h3>六大军工领域需求分布<span class="sub">BY DOMAIN</span></h3><div class="chart" id="chDomain"></div></div>
+      <div class="cp-card span-4"><h3>人才能力结构<span class="sub">TALENT RADAR</span></h3><div class="chart" id="chRadar"></div></div>
+      <div class="cp-card span-4"><h3>入库成果构成<span class="sub">8 CATEGORIES</span></h3><div class="chart" id="chDonut"></div></div>
+      <div class="cp-card span-5"><h3>生态贡献榜单<span class="sub">TOP 6</span></h3><div class="chart" id="chRank"></div></div>
+      <div class="cp-card span-4"><h3>攻关任务看板<span class="sub">TASK BOARD</span></h3>
+        <div class="board">
+          <div class="board-row"><div class="bh"><span>待发布</span><b>8 项</b></div><div class="bo"><i data-w="10%" style="background:#8A96AA"></i></div></div>
+          <div class="board-row"><div class="bh"><span>揭榜中</span><b>15 项</b></div><div class="bo"><i data-w="19%" style="background:#5B93E3"></i></div></div>
+          <div class="board-row"><div class="bh"><span>攻坚中</span><b>18 项</b></div><div class="bo"><i data-w="23%" style="background:#2E8A6B"></i></div></div>
+          <div class="board-row"><div class="bh"><span>待验收</span><b>6 项</b></div><div class="bo"><i data-w="8%" style="background:#C08428"></i></div></div>
+          <div class="board-row"><div class="bh"><span>已突破</span><b>31 项</b></div><div class="bo"><i data-w="40%" style="background:#C9A55C"></i></div></div>
+        </div>
+      </div>
+      <div class="cp-card span-3"><h3>实时动态<span class="sub">LIVE FEED</span></h3><div class="cp-feed" id="cpFeed"></div></div>
+    </div>
+    <div class="cp-note">DATA SOURCE: PLATFORM OPERATIONS · DEMO DATA FOR PRESENTATION</div>
+  </div>
+</div>
+
+<!-- ==================== 弹窗 ==================== -->
+<div class="modal-mask" id="detailMask">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" data-close-modal aria-label="关闭"><svg class="ico"><use href="#i-close"/></svg></button>
+    <div class="dm-body" id="dmBody"></div>
+  </div>
+</div>
+
+<div class="modal-mask" id="loginMask">
+  <div class="login-modal" role="dialog" aria-modal="true">
+    <div class="lm-left">
+      <h3>统一身份认证</h3>
+      <p class="s">军工单位需完成保密资质认证后登录</p>
+      <div class="lm-role" id="lmRole">
+        <button class="active">军工单位</button><button>高等院校</button><button>软件厂商</button><button>专家 / 导师</button><button>学员</button>
+      </div>
+      <div class="lm-field"><label>账 号</label><input class="lm-input" type="text" placeholder="请输入统一账号" autocomplete="username"></div>
+      <div class="lm-field"><label>密 码</label><input class="lm-input" type="password" placeholder="请输入密码" autocomplete="current-password"></div>
+      <div class="lm-row"><a>忘记密码</a><a>注册新账号</a></div>
+      <button class="btn btn-gold" id="lmSubmit">登 录</button>
+      <p class="lm-tip">登录即表示同意《平台使用协议》与《保密承诺书》<br>军工单位首次登录须上传保密资质证书并完成审核</p>
+    </div>
+    <div class="lm-right">
+      <div class="orb-scene">
+        <div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-ring r3"></div>
+        <div class="orb-core"></div>
+        <span class="orb-chip" style="top:6px;left:50%;transform:translateX(-50%)">EDA</span>
+        <span class="orb-chip" style="top:38%;right:-6px;animation-delay:1.2s">CAE</span>
+        <span class="orb-chip" style="bottom:24%;left:-10px;animation-delay:2.1s">CAD</span>
+        <span class="orb-chip" style="bottom:2px;right:22%;animation-delay:.6s">MBSE</span>
+      </div>
+      <div class="lm-caption">数智工业中枢 · 自主可控底座</div>
+    </div>
+  </div>
+</div>
+
+<!-- 搜索浮层 -->
+<div class="search-ov" id="searchOv">
+  <div class="search-box">
+    <svg class="ico search-ico"><use href="#i-search"/></svg>
+    <input class="search-input" id="searchInput" type="text" placeholder="搜索课程 / 需求 / 成果 / 赛事 / 模块…">
+    <div class="search-hots"><span>热门</span>
+      <button data-skw="在线课程">在线课程</button><button data-skw="揭榜挂帅">揭榜挂帅</button><button data-skw="考核认证">考核认证</button><button data-skw="供需匹配">供需匹配</button><button data-skw="驾驶舱">驾驶舱</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+/* ================= 工具 ================= */
+var $=function(s,el){return (el||document).querySelector(s)};
+var $$=function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s))};
+function toast(msg){var w=$('#toastWrap'),t=document.createElement('div');t.className='toast';t.innerHTML='<svg class="ico"><use href="#i-check"/></svg><span></span>';t.querySelector('span').textContent=msg;w.appendChild(t);setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},320)},2600)}
+
+/* ================= 模块数据（对应附件2需求规格说明书） ================= */
+var MODULES={
+ course:{zone:'人才赋能区',name:'在线课程中心',en:'Online Course Center',icon:'book',desc:'提供工业软件课程资源的集中展示、检索、学习和评价功能，覆盖通用基础课、理论方法课、实践实操课、工程素养课等全部课程类型，支撑实训实践和人才培养两大核心业务。',feats:[['课程展示与检索','课程按软件类型、军工领域、课程类型、实训等级（L1-L4）四级分类，支持关键词+标签+多条件组合检索，课程首页瀑布流+侧边筛选栏。'],['课程详情与学习','课程详情含大纲、课件预览、讲师介绍、学员评价；学习过程记录进度、时长与完成状态，支持视频 / 文档 / 交互式课件多格式。'],['课程评价与反馈','课程完成后可进行 1-5 星评分与文字评论，评分纳入讲师考核与课程质量评估。'],['课程开发与发布','双师与平台管理员可创建课程，经基地学术委员会审核后发布，支持 PPT / PDF / 视频 / SCORM 格式课件。'],['工程案例库','脱敏军工工程案例经脱敏审查、教学化处理与可复现性验证后入库，含说明、数据文件、操作步骤与参考结果。']],kpis:[['课程总数','326 门'],['学习人次','12.8 万'],['平均完成率','74%'],['课程类型','8 类']]},
+ training:{zone:'人才赋能区',name:'实训线上教学',en:'Online Practical Training',icon:'code',desc:'提供工业软件研发和应用两类实训案例的在线学习与实操指导，支撑线下实训基地的线上教学资源配套。',feats:[['工业软件研发实训','覆盖 CAD 建模工具、CAE 求解器、CAM 模块、EDA 工具的代码开发、功能调试与工程适配实训，按软件类型×根技术分类，支持 L1-L4 分级。'],['工业软件应用实训','面向行业场景建模、仿真分析、二次开发等应用型实训，按军工领域×软件类型×应用场景分类，脱敏军工场景经四级审核后入库。'],['实训案例开发与审核','导师 / 双师 / 产业导师开发实训案例，须包含案例说明、数据文件、操作步骤、参考结果与考核标准，经基地学术委员会审核后发布。']],kpis:[['实训案例','486 个'],['年实训人次','8,200'],['覆盖根技术','12 项'],['实训等级','L1-L4']]},
+ cert:{zone:'人才赋能区',name:'考核与认证',en:'Assessment & Certification',icon:'award',desc:'提供工业软件一至四级证书的在线考核、认证管理、学分互认等功能，支撑人才认证体系的线上化运营。',feats:[['在线考核','四级认证体系：一级基础认知、二级基本能力+项目实践、三级应用与二次开发、四级较强研发应用+军工项目实操；考教分离，独立评审委员会组织，含倒计时、防作弊机制。'],['人才画像','基于知识、技能、素养三维数据构建个人能力画像，含能力雷达图、技能标签云、成长曲线与认证徽章，随学习实训动态更新。'],['学分与证书管理','学分与高校学分互认，证书由高校+军工集团+软件厂商联合签章，支持在线查询验证与防伪，认证周期一年。']],kpis:[['认证学员','8,200 人'],['证书体系','四级'],['认证通过率','89%'],['联合签章方','3 类']]},
+ growth:{zone:'人才赋能区',name:'能力提升',en:'Capability Enhancement',icon:'trend',desc:'提供课题发布和基金指南发布功能，支撑学员和研究人员的能力进阶。',feats:[['课题发布','发布根技术研发（求解器、几何内核、EDA 引擎等底层突破）与根技术应用（行业场景适配、二次开发、集成应用）两类课题，须关联技术攻关任务与基金指南。'],['基金指南发布','发布种子基金（0-100 万/项）、攻关基金（100-500 万/项）、转化基金（500-2000 万/项）三类指南，每年两期攻关指南，40% 军工需求+30% 厂商需求+30% 自主征集。']],kpis:[['在研课题','65 项'],['基金类型','3 类'],['指南频次','年 2 期'],['课题方向','2 类']]},
+ job:{zone:'人才赋能区',name:'就业推荐引擎',en:'Career Recommendation',icon:'case',desc:'基于人才画像和岗位需求，实现人才与岗位的智能匹配和双向选择。',feats:[['人才画像与岗位匹配','基于技术、领域、软件、等级、信用、安全六维匹配模型，输出匹配推荐列表与匹配度评分，双向推荐可视化。'],['双向选择大厅','支持专场招聘会、定期双选会、即时洽谈三种模式，提供简历投递、面试预约、在线签约全流程。'],['职业发展追踪','跟踪毕业生 5 年职业发展轨迹，覆盖就业去向、岗位变迁、技能提升、薪资变化，数据反哺培养方案优化。']],kpis:[['在招岗位','386 个'],['注册人才','2,340 人'],['平均匹配度','87%'],['本月签约','156 人']]},
+ community:{zone:'人才赋能区',name:'答疑与社区',en:'Q&A Community',icon:'msg',desc:'提供技术答疑、经验分享、在线交流的社区功能。',feats:[['技术问答','按软件类型 / 军工领域 / 问题类型分类的在线问答，导师优先回答，优质回答纳入知识库。'],['经验分享','支持图文 / 视频 / 文件附件的工程实践经验分享，经审核后发布，优质内容纳入精选推荐。'],['在线交流区','按领域（六大军工领域）、软件（EDA/CAD/CAE 等）、项目（攻关项目专属）组建交流区，支持消息流与文件共享。']],kpis:[['累计问答','3,240 条'],['知识库条目','1,100 条'],['活跃交流区','24 个']]},
+ tech:{zone:'产业赋能区',name:'技术服务',en:'Technology Services',icon:'bolt',desc:'提供技术攻关任务管理、项目孵化服务、成果转化服务的全流程线上支撑。',feats:[['技术攻关任务管理','任务类型：卡脖子攻关（P0）、替代攻关（P1）、适配攻关（P2）、集成攻关（P3）；承接模式：军工出题+高校攻关+厂商转化等三方联合；过程管理：准备→执行→验收→推广，含甘特图与里程碑考核。'],['项目孵化服务','创意（种子基金 0-100 万）→原型→产品（攻关基金 100-500 万）→规模（转化基金 500-2000 万）四阶段孵化管理，配套算力、数据、技术、商业四类资源。'],['成果转化服务','论文→原型→模块→产品→应用四阶段转化；成果权属：纯高校成果归高校、校企联合共有、基金参股按股分配，转化资金回流专项基金。']],kpis:[['攻关任务','78 项'],['孵化项目','57 项'],['转化成果','142 项'],['基金规模','2 亿元']]},
+ product:{zone:'产业赋能区',name:'产品服务',en:'Product Services',icon:'layers',desc:'提供国产工业软件产品发布、试用申请、成果展示与推介功能。',feats:[['产品发布专栏','厂商发布产品信息与产品手册，含软件类型、状态分类（系统/平台/模块/数据/算法/工具类）、自主可控等级、信创适配与国外对标对比。'],['软件试用窗口','申请→厂商审核→许可发放→驻场支持→反馈收集→试用报告全流程；「以训促推」四步法：免费培训→项目验证→深度试用→正式采购。'],['成果转化对接','三种转化路径：国防军工内部定向转化、软件厂商技术授权与迭代、成果作价入股产业化公司。']],kpis:[['发布产品','326 款'],['试用申请','214 次'],['转化对接','96 项']]},
+ industry:{zone:'产业赋能区',name:'产业服务',en:'Industrial Services',icon:'flag',desc:'提供需求征集发布、供需对接、产业支撑等核心产业服务功能。',feats:[['需求发布门户','攻关 / 替代 / 培训 / 人才 / 咨询 / 产品采购六类需求的常态化征集、结构化录入与分级发布，支持实时发布+分级推送+月度汇总+季度通报。'],['供需智能匹配','技术、领域、软件、时间、信用、安全六维匹配模型，结构化入库→自动匹配→专家研判→推送→双向确认→正式对接。'],['供需专项对接','年度大型、领域专题、项目专项、线上四类对接会，含在线会议室、远程演示与电子签约。'],['项目全生命周期管理','立项（需求确认 / 合同签订）→执行（里程碑检查）→验收（成果验收 / 军工确认）→推广（成果入库 / 需求反哺）四阶段管理。'],['产业支撑服务','政策解读、申报辅导、资质认定指导；方案 / 成果 / 验收三类技术评审；专家在线预约咨询。'],['专项基金运营管理','种子 / 攻关 / 转化三类基金的指南发布、项目申报、三方联合评审、里程碑式管理与资金拨付。']],kpis:[['累计需求','486 项'],['在发布需求','86 项'],['智能匹配','24 组'],['基金类型','3 类']]},
+ policy:{zone:'生态赋能区',name:'顶层政策指导',en:'Policy Guidance',icon:'doc',desc:'发布和解读国防工业软件领域顶层政策、领导指示、标准规范。',feats:[['最新政策发布','国家战略、部委文件、行业标准、地方政策四类政策发布，每条政策含原文+解读+影响分析。'],['标准发布与解读','仿真规范、建模规范、验收标准、接口标准、数据标准五类标准的发布与解读。']],kpis:[['政策文件','216 份'],['标准规范','84 项']]},
+ activity:{zone:'生态赋能区',name:'专项活动组织',en:'Events & Activities',icon:'trophy',desc:'组织和管理各类线上线下专项活动，发布相关信息，提供报名、查询等入口。',feats:[['行业软件竞赛','「春雷大赛」「天元杯」「昆仑杯」等品牌赛事的组织与评审，流程覆盖报名→初赛→复赛→决赛→颁奖。'],['供需对接会','线上/线下供需对接活动的组织，线上对接会含在线会议室+远程演示+电子签约。'],['技术沙龙与培训推广','每月 1-2 次线上技术沙龙（软件厂商演示+军工用户分享）与「以训促推」专项培训。'],['产品推介会与人才双选会','面向军工决策层、技术负责人分层组织推介会；面向高校学生、军工新入职、厂商技术人员的双选会。']],kpis:[['年度赛事','6 场'],['技术沙龙','年 18 期'],['对接会','年 12 场']]},
+ achieve:{zone:'生态赋能区',name:'成果展示',en:'Achievement Gallery',icon:'star',desc:'汇聚和展示三方优秀成果，支撑成果入库管理全流程。',feats:[['高校技术成果展示','论文、专利、软件模块、算法插件、技术报告的在线展示，含成果卡片、详情页与在线演示。'],['厂商技术突破展示','新产品发布、版本更新、关键指标突破、对标替代进展展示，含版本对比与性能基准。'],['军工集团优秀实践展示','脱敏后的国产化替代成功案例、验证报告摘要与应用效果数据展示。'],['生态贡献榜单','成果贡献榜、人才培养榜、需求响应榜、技术推广榜四维排行与勋章体系。']],kpis:[['展示成果','1,530 项'],['军工实践案例','63 个'],['贡献榜单','4 维']]},
+ library:{zone:'生态赋能区',name:'成果入库管理',en:'Achievement Repository',icon:'db',desc:'八类成果的结构化入库、审核、分类编目、版本管理与权限控制，是平台资源沉淀的核心模块。',feats:[['成果提交与审核','八类成果：软件成果 / 验证报告 / 工程案例 / 基准数据 / 技术报告 / 规范标准 / 课程资源 / 人才数据；四级审核：脱敏审查→规范性审查→质量评审→分类编目。'],['成果分类编目与检索','统一编码、标签与版本管理，支持全文+字段+标签组合检索。'],['成果分级与权限管理','公开级（注册用户可见）、内部级（保密协议成员可见）、受限级（特定授权可见）三级访问控制。'],['成果更新与淘汰','版本同步更新、年度复审、过时成果标注归档保留不删除。']],kpis:[['入库成果','1,530 项'],['成果类型','8 类'],['审核层级','4 级'],['权限等级','3 级']]},
+ news:{zone:'生态赋能区',name:'生态资讯与动态',en:'News & Briefings',icon:'radar',desc:'发布和推送生态相关的政策、联盟、行业、年度/运营报告等资讯。',feats:[['资讯发布与管理','上层政策、联盟动态、行业资讯、年度报告、运营报告五类资讯发布，多渠道推送。'],['月度 / 季度简报','月度需求简报（新增需求 / 匹配情况 / 未匹配需求）与季度运营简报（项目进展 / 人才输送 / 成果转化 / 基金运营）自动生成。']],kpis:[['资讯发布','年 480 条'],['自动简报','月度+季度']]},
+ partner:{zone:'生态赋能区',name:'生态伙伴联盟',en:'Ecosystem Alliance',icon:'hex',desc:'管理生态成员网络、信任机制、行为规范，支撑生态体系建设。',feats:[['成员网络管理','军工集团、软件厂商、高校、行业组织、投资机构五类成员的注册、审核与权益管理。'],['领域专家风采','院士、首席科学家、军工总师、研发总监、投融资专家的展示与在线预约咨询。'],['厂商产品谱系 / 军工能力图谱 / 高校教学体系','三方能力画像：核心产品与自主技术、软件需求与替代进展、学科与课程体系。'],['信用评价与行为规范','军工需求履约率、高校成果转化成功率、厂商服务满意度三维信用评价；诚信、保密、知识产权、公平、质量、安全六项行为规范，信用评级与资源倾斜挂钩。']],kpis:[['成员单位','227 家'],['入库专家','186 位'],['信用维度','3 维']]},
+ 'a-user':{zone:'运营管理区',name:'用户与权限管理',en:'User & Access Control',icon:'user',internal:true,desc:'平台用户全生命周期管理与分级权限控制。',feats:[['用户注册与认证','军工单位（需保密资质认证）、软件厂商、高校、行业组织、投资机构、个人用户的多角色注册与身份认证。'],['角色与权限管理','基于 RBAC 的细粒度权限管理，角色体系覆盖平台管理员、业务管理员、审核员、各类单位用户、专家、导师、学员；权限维度含菜单、数据、操作权限。']],kpis:[['注册用户','28,647'],['角色类型','9 类'],['权限模型','RBAC']]},
+ 'a-data':{zone:'运营管理区',name:'数据统计与决策支持',en:'Data Analytics',icon:'grid',internal:true,desc:'平台运营数据的统计分析和可视化看板。',feats:[['运营数据看板','用户、课程、实训、供需、成果、基金六维核心指标实时看板，支持钻取与导出。'],['专项分析报告','人才供需分析、国产化替代进展、成果转化效率、生态健康度评估四类定制化报告。']],kpis:[['指标维度','6 大类'],['报告类型','4 类'],['刷新延迟','<30 秒']]},
+ 'a-sec':{zone:'运营管理区',name:'安全与审计',en:'Security & Audit',icon:'lock',internal:true,desc:'平台安全管理和操作审计。',feats:[['操作审计日志','登录、数据访问、文件下载、审核操作、权限变更、数据导出全程审计，日志保留不少于 5 年。'],['数据脱敏管理','装备型号代称替换、精确参数区间化、部队编制脱除、项目代号编号化；四级审核：提交单位→保密→工作组→专家委员会。'],['安全监控与告警','异常登录、批量下载、越权访问、敏感词检测、注入攻击检测；站内信+邮件+短信告警。']],kpis:[['日志保留','≥5 年'],['脱敏规则','4 类'],['监控维度','5 类']]},
+ 'a-audit':{zone:'运营管理区',name:'内容审核管理',en:'Content Review',icon:'check',internal:true,desc:'平台发布内容的审核管理。',feats:[['内容审核工作台','课程审核（学术委员会）、案例审核（脱敏+教学化+可复现性）、成果审核（脱敏+质量+规范）、资讯审核（合规性）；流程：提交→初审→复审→发布。']],kpis:[['审核类型','4 类'],['审核流程','3 级']]},
+ 'a-msg':{zone:'运营管理区',name:'消息通知中心',en:'Notification Center',icon:'bell',internal:true,desc:'平台各类消息的统一管理和推送。',feats:[['站内消息','系统通知、审核结果、项目进展、需求匹配、活动提醒、基金动态六类消息的统一管理。'],['多渠道推送','紧急消息短信、常规消息邮件 / 站内信；用户可自定义推送偏好与渠道配置。']],kpis:[['消息类型','6 类'],['推送渠道','3 个']]}
+};
+
+/* ================= 详情数据 ================= */
+var DETAILS={
+ pj0:{tags:[['联合突破 · 已验证','badge b-joint'],['推广中','st st-done']],title:'自主三维 CAD 几何内核航空结构件设计全流程适配',org:'中望软件 × 航空工业某所 × 北京航空航天大学',metas:[['所属领域','航空'],['软件类型','CAD'],['攻关周期','18 个月'],['替代率','85%'],['适配型号','12 型'],['状态','已验证推广']],paras:['由软件厂商、航空工业某研究所与高校组成三方联合攻关体，以航空结构件正向设计为场景牵引，完成自主几何内核在曲面建模、装配约束、工程图输出等关键环节的全面适配验证。','项目形成「需求-适配-验证-推广」的闭环方法论，已推广至 12 个型号场景，设计效率提升 40%，成为可复制的国产化替代标杆方案。'],points:['自主几何内核完成航空结构件 12 型场景验证','设计环节国产化替代率达 85%','沉淀可复用的迁移方法论与基准数据集'],cta:{label:'查看完整解决方案',msg:'演示环境：解决方案详情即将上线'}},
+ pj1:{tags:[['军工单位','badge b-mil'],['P0 紧急','pri pri-0']],title:'航空装备结构仿真 CAE 国产化替代攻关',org:'某航空工业集团 · 需求发布',metas:[['所属领域','航空'],['软件类型','CAE'],['预算经费','800 万元'],['攻关周期','18 个月'],['优先级','P0 紧急'],['发布时间','2026-08-12']],paras:['针对型号结构分析流程中国外 CAE 软件占比逾九成、存在后门与禁运风险的现状，征集国产 CAE 方案完成多物理场耦合场景全流程替代验证。','攻关内容包括结构-热-振动多物理场耦合求解精度对标、与试验数据的偏差基线建立、前后处理流程迁移与二次开发接口适配。'],points:['完成 3 类典型部件的全流程替代验证','仿真结果与试验数据偏差 ≤5%','形成《CAE 国产化替代验证规范》'],cta:{label:'响应需求 / 承接攻关',msg:'演示环境：需求响应申请已提交'}},
+ pj2:{tags:[['军工单位','badge b-mil'],['P1 重要','pri pri-1']],title:'船体结构强度分析软件二次开发',org:'中国船舶集团某研究院 · 需求发布',metas:[['所属领域','船舶'],['软件类型','CAE'],['预算经费','300 万元'],['攻关周期','12 个月'],['优先级','P1 重要'],['发布时间','2026-08-05']],paras:['基于国产 CAE 平台开发船体结构强度评估专用模块，实现波浪载荷工况自动化建模、规范校核流程封装与评估报告自动生成。'],points:['波浪载荷工况建模效率提升 60%','覆盖 3 类船型规范校核模板','与现有设计流程无缝集成'],cta:{label:'响应需求',msg:'演示环境：需求响应申请已提交'}},
+ pj3:{tags:[['军工单位','badge b-mil'],['P2 提升','pri pri-2']],title:'弹药装药仿真模型库建设',org:'兵器工业某研究院 · 需求发布',metas:[['所属领域','兵器'],['软件类型','CAE'],['预算经费','260 万元'],['攻关周期','10 个月'],['优先级','P2 提升'],['发布时间','2026-07-28']],paras:['建设弹药装药冲击起爆仿真标准化模型库，所有模型经四级脱敏审查与教学化处理后，同时服务于型号验证与实训教学。'],points:['标准化模型 60 个，覆盖 6 型装备场景','全部通过四级脱敏审查','配套实训教学指导与考核标准'],cta:{label:'响应需求',msg:'演示环境：需求响应申请已提交'}},
+ pj4:{tags:[['软件厂商','badge b-ven'],['P2 提升','pri pri-2']],title:'军工电子 PCB 设计工具测评认证',org:'华大九天 · 需求发布',metas:[['所属领域','电子'],['软件类型','EDA'],['测评周期','6 个月'],['优先级','P2 提升'],['信创适配','全栈适配'],['发布时间','2026-08-16']],paras:['面向军工电子产品设计需求，开展国产 EDA 工具链的功能完整性、仿真精度与信创适配第三方测评，形成可采信的测评报告。'],points:['功能覆盖率对标国际工具达 92%','时序仿真偏差 ≤3%','通过麒麟 / 统信环境全栈适配验证'],cta:{label:'申请测评 / 查看报告',msg:'演示环境：测评申请已提交'}},
+ pj5:{tags:[['软件厂商','badge b-ven'],['P3 前瞻','pri pri-3']],title:'CAD / CAM 一体化制造验证应用',org:'数码大方 · 需求发布',metas:[['所属领域','兵器'],['软件类型','CAD/CAM'],['验证周期','9 个月'],['优先级','P3 前瞻'],['信创适配','部分适配'],['发布时间','2026-08-10']],paras:['在兵器装备复杂结构件加工场景中开展国产 CAD/CAM 一体化贯通验证，打通设计到加工的数据链路，验证五轴加工刀轨生成质量。'],points:['设计-工艺-加工数据链路全贯通','复杂曲面五轴加工验证 5 类零件','加工效率对齐国外主流方案 95%'],cta:{label:'参与验证',msg:'演示环境：验证申请已提交'}},
+ pj6:{tags:[['高等院校','badge b-uni'],['P1 重要','pri pri-1']],title:'工业软件研发工具开发课题',org:'北京航空航天大学 · 需求发布',metas:[['所属领域','共性基础'],['技术方向','几何内核'],['课题经费','专项课题'],['攻关周期','24 个月'],['优先级','P1 重要'],['发布时间','2026-07-20']],paras:['围绕三维几何内核根技术发布联合研发课题，重点攻关大规模装配场景下的内核性能瓶颈与布尔运算稳定性问题。'],points:['十万级零件装配加载性能优化','复杂布尔运算稳定性提升','联合培养内核研发方向研究生 12 名'],cta:{label:'申报课题',msg:'演示环境：课题申报已提交'}},
+ pj7:{tags:[['高等院校','badge b-uni'],['P3 前瞻','pri pri-3']],title:'MBSE 应用工具开发实训项目',org:'哈尔滨工程大学 · 需求发布',metas:[['所属领域','航天'],['软件类型','MBSE'],['项目周期','8 个月'],['优先级','P3 前瞻'],['实训等级','L3-L4'],['发布时间','2026-08-02']],paras:['面向航天型号总体设计流程，联合开发 MBSE 需求建模教学工具链与配套实训案例集，形成「课程-实训-认证」一体化教学资源。'],points:['开发需求建模教学工具链 1 套','配套实训案例 16 个','支撑本硕贯通培养 3 届'],cta:{label:'参与共建',msg:'演示环境：共建申请已提交'}},
+ tk1:{tags:[['根技术攻关','badge b-joint'],['揭榜中','st st-run']],title:'CAE 大规模并行求解器研发（年度重点榜）',org:'某军工集团出题 · 攻关基金 500 万配套',metas:[['任务类型','根技术攻关'],['基金支持','500 万元'],['揭榜截止','2026-09-30'],['攻关周期','24 个月'],['已揭榜','3 家'],['优先级','P0']],paras:['面向航空装备大规模结构仿真需求，研发支持千核级并行扩展的通用有限元求解器，核心性能指标对齐国际主流商业求解器。','承接单位须具备并行求解器研发基础，高校与厂商联合体优先，成果按里程碑分期拨付支持。'],points:['千核级并行扩展效率 ≥75%','大规模线性方程组求解性能对标国际主流','成果开源社区共建，知识产权按贡献分配'],cta:{label:'我要揭榜',msg:'演示环境：揭榜申请已提交至工作组审核'}},
+ tk2:{tags:[['根技术攻关','badge b-ven'],['揭榜中','st st-open']],title:'EDA 仿真引擎精度与性能提升',org:'概伦电子 × 种子基金 · 300 万元',metas:[['任务类型','根技术攻关'],['基金支持','300 万元'],['已揭榜','3 家'],['攻关周期','18 个月'],['技术方向','电路仿真'],['优先级','P1']],paras:['电路仿真引擎精度对标国际主流工具，攻克收敛性与大规模电路加速难题，支撑军工电子高精度设计需求。'],points:['仿真精度对标达 98%','万级规模电路仿真提速 3 倍','收敛失败率下降 80%'],cta:{label:'我要揭榜',msg:'演示环境：揭榜申请已提交'}},
+ tk3:{tags:[['工业软件改进','badge b-uni'],['评审中','st st-review']],title:'CAD 超大装配体加载优化',org:'中望软件出题 · 200 万元',metas:[['任务类型','工业软件改进'],['基金支持','200 万元'],['申报单位','5 家'],['攻关周期','12 个月'],['技术方向','几何内核'],['优先级','P1']],paras:['突破十万级零件装配体的轻量化加载与渲染性能瓶颈，支撑装备总体设计场景的流畅交互。'],points:['十万级零件加载时间 ≤30 秒','大装配渲染帧率 ≥25fps','轻量化数据格式兼容主流 CAD'],cta:{label:'查看评审进展',msg:'演示环境：评审安排将另行通知'}},
+ tk4:{tags:[['关键模块开发','badge b-uni'],['揭榜中','st st-open']],title:'MBSE 需求追踪模块开发',org:'哈尔滨工程大学出题 · 150 万元',metas:[['任务类型','关键模块开发'],['基金支持','150 万元'],['已揭榜','2 家'],['攻关周期','10 个月'],['技术方向','MBSE'],['优先级','P2']],paras:['开发覆盖需求-设计-验证全链路的追溯管理模块，服务航天型号研制过程管控。'],points:['全链路双向追溯覆盖率 100%','变更影响分析自动化','与主流 MBSE 工具链集成'],cta:{label:'我要揭榜',msg:'演示环境：揭榜申请已提交'}},
+ tk5:{tags:[['关键模块开发','badge b-ven'],['攻坚中','st st-run']],title:'仿真数据管理模块开发',org:'安世亚太出题 · 120 万元',metas:[['任务类型','关键模块开发'],['基金支持','120 万元'],['状态','已立项攻坚'],['攻关周期','10 个月'],['技术方向','数据管理'],['优先级','P2']],paras:['构建仿真输入输出数据的版本管理、对比分析与知识沉淀模块，形成仿真数据资产化管理能力。'],points:['数据版本管理与差异对比','仿真知识库自动归集','多学科数据统一索引'],cta:{label:'关注进展',msg:'演示环境：项目进展月报将定期发布'}},
+ tk6:{tags:[['工业软件改进','badge b-ven'],['已突破','st st-done']],title:'CAM 五轴刀轨算法改进',org:'华中数控揭榜 · 180 万元',metas:[['任务类型','工业软件改进'],['基金支持','180 万元'],['状态','已突破'],['攻关周期','14 个月'],['技术方向','CAM'],['优先级','P1']],paras:['复杂曲面五轴加工刀轨生成效率提升 60%，刀轨质量通过航空结构件加工实测验证，成果已入库并进入推广阶段。'],points:['刀轨生成效率提升 60%','加工精度与表面质量达标','成果已入库，进入军工推广'],cta:{label:'查看突破成果',msg:'演示环境：成果详情即将上线'}},
+ tk7:{tags:[['根技术攻关','badge b-mil'],['揭榜中','st st-open']],title:'电磁仿真求解器多物理场耦合',org:'军工集团出题 · 450 万元',metas:[['任务类型','根技术攻关'],['基金支持','450 万元'],['已揭榜','1 家'],['攻关周期','24 个月'],['技术方向','电磁仿真'],['优先级','P0']],paras:['攻克电磁-结构-热多物理场耦合求解难题，服务雷达与天线系统设计，填补国产工具链空白。'],points:['三场耦合求解精度对标国际工具','支持千万网格级问题求解','服务 2 个重点型号验证'],cta:{label:'我要揭榜',msg:'演示环境：揭榜申请已提交'}},
+ ev1:{tags:[['国家级','badge b-joint'],['报名中','st st-open']],title:'第二届「春雷大赛」国防工业软件创新大赛',org:'大赛组委会 · 86 家单位协办',metas:[['赛事级别','国家级'],['奖金池','500 万元'],['报名截止','2026-09-30'],['赛道设置','3 条'],['已报名','1,286 队'],['赛程','2026.07-12']],paras:['面向全国军工单位、软件厂商与高等院校征集工业软件创新成果，设根技术突破、行业应用创新、实训教学创新三大赛道，覆盖 EDA、CAD、CAE、CAM、MBSE 全部软件类型。','优秀团队直通产教研专项基金支持，获奖成果优先纳入平台成果库并向军工单位推介。'],points:['根技术突破赛道：求解器、几何内核、EDA 引擎等底层突破','行业应用创新赛道：军工场景国产化应用创新','实训教学创新赛道：课程、案例与教学模式创新','决赛现场评审 + 线上直播，全程公开透明'],cta:{label:'立即报名',msg:'演示环境：大赛报名通道即将开放'}},
+ ev2:{tags:[['行业级','badge b-ven'],['初赛进行中','st st-run']],title:'「天元杯」CAE 数值仿真创新赛',org:'中国仿真学会等联合主办',metas:[['赛事级别','行业级'],['赛程','2026.07-12'],['当前阶段','初赛'],['已报名','426 队'],['软件平台','国产 CAE'],['方向','多物理场']],paras:['聚焦国产 CAE 平台上的工程仿真创新应用，覆盖结构、流体、电磁多物理场方向，初赛作品提交进行中。'],points:['初赛：线上命题作品提交','复赛：真实工程场景建模','决赛：现场答辩与评审直播'],cta:{label:'赛事详情',msg:'演示环境：赛事详情即将上线'}},
+ ev3:{tags:[['行业级','badge b-ven'],['报名中','st st-open']],title:'「昆仑杯」EDA 创新设计大赛',org:'中国半导体行业协会等联合主办',metas:[['赛事级别','行业级'],['赛程','2026.09-2027.03'],['当前阶段','报名'],['已报名','312 队'],['软件平台','国产 EDA'],['方向','电路与版图']],paras:['面向军工电子方向，考察国产 EDA 工具链上的模拟电路设计与版图自动化能力。'],points:['报名截止 2026 年 10 月底','设高校组与企业组双赛道','优胜队伍获厂商直通面试资格'],cta:{label:'立即报名',msg:'演示环境：报名通道即将开放'}},
+ ev4:{tags:[['行业级','badge b-mil'],['即将启动','st st-soon']],title:'「铸剑杯」军工数字化建模大赛',org:'平台联合军工集团主办',metas:[['赛事级别','行业级'],['赛程','2026.10-2027.05'],['当前阶段','筹备中'],['软件平台','CAD / MBSE'],['方向','正向设计']],paras:['围绕装备数字化正向设计，比拼基于国产 CAD/MBSE 工具的总体建模与协同设计能力，10 月正式启动。'],points:['团队赛制，军工单位+高校混编组队','真实脱敏型号场景命题','获奖方案纳入型号预研储备'],cta:{label:'关注启动通知',msg:'演示环境：启动通知将站内推送'}},
+ ev5:{tags:[['行业级','badge b-uni'],['报名中','st st-open']],title:'全国工业软件「智造」创新大赛',org:'多家行业组织联合主办',metas:[['赛事级别','行业级'],['赛程','2026.09-2027.01'],['当前阶段','报名'],['已报名','208 队'],['软件平台','国产工业软件'],['方向','数字孪生 / 智能制造']],paras:['面向智能制造场景，征集基于国产工业软件的数字孪生与智能产线创新应用方案。'],points:['数字孪生与智能产线双方向','优秀方案对接产教研转化基金','决赛路演 + 产线实测'],cta:{label:'立即报名',msg:'演示环境：报名通道即将开放'}},
+ cs1:{tags:[['军工场景','badge b-mil'],['脱敏','pri pri-2']],title:'某航空集团结构仿真全流程国产化应用',org:'某航空工业集团 · 案例提供',metas:[['所属领域','航空'],['软件类型','CAE'],['替代率','85%'],['仿真周期','缩短 1/3'],['案例等级','A级'],['入库时间','2026-06']],paras:['以某型部件研制为对象，将建模、前处理、求解、后处理全流程迁移至国产 CAE 平台，建立与试验数据的对标基线，形成可复制的迁移方法论。','案例含脱敏模型数据包、操作流程、参考结果与验证数据，可直接用于实训教学。'],points:['全流程国产化覆盖率 85%','仿真周期缩短三分之一','沉淀迁移方法论与对标基线数据'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs2:{tags:[['军工场景','badge b-mil'],['脱敏','pri pri-2']],title:'船舶某院船体结构仿真平台迁移实践',org:'中国船舶集团某研究院 · 案例提供',metas:[['所属领域','船舶'],['软件类型','CAE'],['迁移周期','14 个月'],['软件压缩','70→9 种'],['案例等级','A级'],['入库时间','2026-05']],paras:['历时 14 个月完成国外结构分析软件的国产平台整体迁移，沉淀波浪载荷自动化脚本库与规范校核模板。'],points:['国外软件从 70 余种压缩至 9 种','型号任务常态化国产化应用','脚本库与模板库开放生态共享'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs3:{tags:[['军工场景','badge b-mil'],['脱敏','pri pri-2']],title:'兵器某院弹药装药仿真教学化实践',org:'兵器工业某研究院 · 案例提供',metas:[['所属领域','兵器'],['软件类型','CAE'],['教学案例','23 个'],['装备场景','6 型'],['案例等级','B级'],['入库时间','2026-07']],paras:['将军工真实仿真场景经四级脱敏审查后转化为实训教学案例，配套模型数据包与操作指导，实现「型号验证」与「实训教学」双用途复用。'],points:['脱敏教学案例 23 个入库','覆盖 6 型装备场景','实训-考核一体化设计'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs4:{tags:[['产品全周期','badge b-ven']],title:'国产 CAE 平台 PERA SIM 成长之路',org:'安世亚太 · 案例提供',metas:[['软件类型','CAE'],['研发周期','8 年'],['装机量','3,000+ 套'],['覆盖领域','7 个'],['案例等级','A级'],['入库时间','2026-04']],paras:['从需求定义、架构设计、研发测试到军工场景验证与规模化推广的全寿命周期实践，展示一款国产工业软件从可用走向好用的完整路径。'],points:['8 年完成全流程产品化','军工场景验证 20+ 个','装机量突破 3,000 套'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs5:{tags:[['产品全周期','badge b-ven']],title:'自主几何内核的三维 CAD 正向设计转型',org:'中望软件 · 案例提供',metas:[['软件类型','CAD'],['内核迭代','2 代'],['型号验证','12 个'],['战略转型','替代→正向'],['案例等级','A级'],['入库时间','2026-06']],paras:['以自主几何内核为根，完成从「替代追赶」到「正向设计」的产品战略转型，建立与高校联合的根技术持续演进机制。'],points:['自主内核完成 2 代迭代','航空场景验证 12 个型号','高校联合根技术持续演进'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs6:{tags:[['产品全周期','badge b-ven']],title:'云端 CAD 协同设计平台工程化落地',org:'华天软件 · 案例提供',metas:[['软件类型','云端 CAD'],['装配承载','10万+ 零件'],['协同验证','5 地'],['架构','云原生'],['案例等级','B级'],['入库时间','2026-07']],paras:['基于云原生架构的 CAD 协同平台在复杂装备联合设计中的工程化实践，支撑多院所跨地域并行设计与数据安全管控。'],points:['单装配体承载 10 万+ 零件','5 地跨域协同设计验证','数据安全分级管控'],cta:{label:'查看完整案例',msg:'演示环境：案例详情即将上线'}},
+ cs7:{tags:[['人才培养','badge b-uni']],title:'「双师制」工业软件课程体系建设',org:'北京航空航天大学 · 经验提供',metas:[['培养模式','双师制'],['对口就业率','96%'],['首届毕业','112 人'],['课程类型','8 类'],['案例等级','A级'],['入库时间','2026-05']],paras:['高校教师与军工总师、厂商研发总监共同授课，课程内容对接真实型号场景，形成「课程-实训-认证-就业」贯通培养范式。'],points:['首届毕业生 112 人入职军工单位','对口就业率 96%','课程内容实时对接型号场景'],cta:{label:'查看培养方案',msg:'演示环境：培养方案详情即将上线'}},
+ cs8:{tags:[['人才培养','badge b-uni']],title:'MBSE 方向本硕贯通培养实践',org:'哈尔滨工程大学 · 经验提供',metas:[['培养模式','本硕贯通'],['培养层数','3 届'],['累计培养','216 人'],['L3+认证率','78%'],['案例等级','A级'],['入库时间','2026-06']],paras:['依托航天型号需求设立 MBSE 方向，本科打基础、硕士进项目，学生直接参与型号总体设计工具链的实训课题。'],points:['累计培养 216 人','L3 以上认证率 78%','学生直接参与型号实训课题'],cta:{label:'查看培养方案',msg:'演示环境：培养方案详情即将上线'}},
+ cs9:{tags:[['人才培养','badge b-uni']],title:'EDA 菁英班校企共建模式',org:'电子科技大学 × EDA 厂商 · 经验提供',metas:[['培养模式','校企共建'],['首届学员','40 人'],['双认证率','100%'],['厂商参与','2 家'],['案例等级','B级'],['入库时间','2026-07']],paras:['高校与 EDA 厂商共建菁英班，厂商提供工具链与真实工程数据，高校负责理论教学，实现毕业即上岗的无缝衔接。'],points:['首届学员 40 人全部双认证','厂商真实工程数据进课堂','毕业即上岗无缝衔接'],cta:{label:'查看共建方案',msg:'演示环境：共建方案详情即将上线'}},
+ jb1:{tags:[['军工单位','badge b-mil'],['L3+','pri pri-2']],title:'CAE 仿真工程师',org:'某航空工业研究所 · 北京',metas:[['岗位类型','就业'],['薪资','25-40K·14薪'],['学历要求','硕士及以上'],['认证要求','L3 及以上'],['专业方向','力学 / 航空'],['招聘人数','5 人']],paras:['负责型号结构仿真分析与国产 CAE 平台应用，参与仿真流程标准化建设与工具链验证。'],points:['结构 / 热 / 振动仿真分析','国产 CAE 平台应用与二次开发','仿真规范与流程建设'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb2:{tags:[['软件厂商','badge b-ven']],title:'EDA 算法工程师',org:'华大九天 · 上海',metas:[['岗位类型','就业'],['薪资','30-50K·15薪'],['学历要求','博士优先'],['认证要求','L3 优先'],['专业方向','微电子 / 电路'],['招聘人数','8 人']],paras:['负责电路仿真引擎核心算法研发，攻关收敛性与大规模电路加速难题。'],points:['Spice 仿真引擎算法研发','并行加速与收敛性优化','与国际主流工具对标'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb3:{tags:[['软件厂商','badge b-ven']],title:'CAD 二次开发工程师',org:'中望软件 · 广州',metas:[['岗位类型','就业'],['薪资','20-35K·13薪'],['学历要求','本科及以上'],['认证要求','L2 及以上'],['专业方向','计算机 / 机械'],['招聘人数','6 人']],paras:['基于自主几何内核开展行业定制开发，支撑航空、兵器等军工场景适配。'],points:['几何内核 API 应用开发','行业插件与工具集开发','军工场景适配验证'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb4:{tags:[['军工单位','badge b-mil']],title:'数字孪生工程师',org:'中国电科某研究所 · 成都',metas:[['岗位类型','就业'],['薪资','22-38K·14薪'],['学历要求','硕士及以上'],['认证要求','L3 优先'],['专业方向','系统工程 / 仿真'],['招聘人数','4 人']],paras:['负责装备数字孪生体建模与 MBSE 工具链应用，支撑型号数字化总体设计。'],points:['数字孪生体建模','MBSE 需求与架构设计','多学科联合仿真'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb5:{tags:[['军工单位','badge b-mil'],['实习','pri pri-1']],title:'结构仿真实习生',org:'兵器工业某研究院 · 西安',metas:[['岗位类型','实习'],['补贴','300-400 元/天'],['实习周期','6 个月'],['转正机会','择优转正'],['专业要求','硕一以上'],['招聘人数','4 人']],paras:['参与型号结构仿真分析与国产 CAE 工具实操，优秀实习生可获转正机会。'],points:['国产 CAE 工具实操','型号仿真任务参与','导师一对一带教'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb6:{tags:[['软件厂商','badge b-ven'],['实习','pri pri-1']],title:'EDA 测试实习生',org:'概伦电子 · 上海',metas:[['岗位类型','实习'],['补贴','280-350 元/天'],['实习周期','3-6 个月'],['转正机会','表现优异可转正'],['专业要求','本科大三以上'],['招聘人数','6 人']],paras:['参与 EDA 工具链功能测试与精度验证，接触真实工程测试数据。'],points:['EDA 工具链功能测试','仿真精度验证','测试自动化脚本开发'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ jb7:{tags:[['高校发布','badge b-uni'],['实习','pri pri-1']],title:'MBSE 助理工程师（实习）',org:'哈尔滨工程大学联合团队 · 哈尔滨',metas:[['岗位类型','实习'],['补贴','面议'],['实习周期','6 个月'],['专业要求','本科以上'],['方向','需求建模'],['招聘人数','3 人']],paras:['参与 MBSE 教学工具链开发与实训案例建设，服务航天型号教学化项目。'],points:['MBSE 建模工具开发','实训案例编写','联合团队科研训练'],cta:{label:'投递简历',msg:'演示环境：简历投递已提交'}},
+ tl1:{tags:[['L4 认证','pri pri-0']],title:'张同学 · 飞行器设计',org:'北京航空航天大学 · 硕士二年级',metas:[['认证等级','L4'],['专业方向','飞行器设计'],['软件能力','CAE / CAD'],['项目经历','2 项型号项目'],['求职意向','军工仿真岗'],['能力评分','94 / 100']],paras:['具备结构仿真全流程实操能力，参与 2 项脱敏型号项目实训，四级认证（较强研发应用+军工项目实操）已通过。'],points:['CAE 结构 / 热仿真熟练','型号项目实训经历','L4 最高等级认证'],cta:{label:'发出邀约',msg:'演示环境：邀约通知已发送'}},
+ tl2:{tags:[['L3 认证','pri pri-1']],title:'李同学 · 微电子',org:'电子科技大学 · 本科四年级（菁英班）',metas:[['认证等级','L3'],['专业方向','微电子'],['软件能力','EDA'],['项目经历','菁英班全流程'],['求职意向','EDA 研发岗'],['能力评分','91 / 100']],paras:['EDA 菁英班首届学员，掌握国产 EDA 工具链全流程应用，获厂商与军工双认可认证。'],points:['国产 EDA 工具链熟练','电路设计与版图基础','厂商军工双认可'],cta:{label:'发出邀约',msg:'演示环境：邀约通知已发送'}},
+ tl3:{tags:[['L3 认证','pri pri-1']],title:'王同学 · 船舶工程',org:'哈尔滨工程大学 · 硕士一年级（本硕贯通）',metas:[['认证等级','L3'],['专业方向','船舶工程'],['软件能力','MBSE / CAE'],['项目经历','1 项实训课题'],['求职意向','总体设计岗'],['能力评分','88 / 100']],paras:['MBSE 本硕贯通方向，参与需求追踪模块开发实训课题，具备系统工程思维。'],points:['MBSE 需求建模','船舶结构仿真基础','本硕贯通培养'],cta:{label:'发出邀约',msg:'演示环境：邀约通知已发送'}}
+};
+
+/* ================= 视图管理 ================= */
+var currentView='home';
+function go(view){
+  currentView=view;
+  $('#sitePage').classList.toggle('hidden',view!=='home');
+  $('#modulePage').classList.toggle('hidden',view!=='module');
+  if(view==='cockpit'){$('#cockpitPage').hidden=false;document.body.style.overflow='hidden';initCockpit()}
+  else{$('#cockpitPage').hidden=true;if(!anyModalOpen())document.body.style.overflow='';cpTimers.forEach(clearInterval)}
+  window.scrollTo(0,0);
+  if(view==='home')startReveal();
+}
+function anyModalOpen(){return $$('.modal-mask.open').length>0}
+function openModule(id){
+  var m=MODULES[id];if(!m)return;
+  var zoneMod={ '人才赋能区':'course','产业赋能区':'tech','生态赋能区':'partner','运营管理区':'a-data' };
+  var feats=m.feats.map(function(f,i){return '<div class="card mf-card reveal"><span class="mf-ico"><svg class="ico"><use href="#i-'+m.icon+'"/></svg></span><div style="flex:1"><b>'+f[0]+'</b><p>'+f[1]+'</p></div><a class="link-arrow mf-go" data-toast="演示环境：功能界面开发中">进入 <svg class="ico" style="width:13px;height:13px"><use href="#i-arr"/></svg></a></div>'}).join('');
+  var kpis=m.kpis.map(function(k){return '<div class="mp-kpi"><b>'+k[1]+'</b><span>'+k[0]+'</span></div>'}).join('');
+  $('#moduleWrap').innerHTML=
+   '<div class="mp-crumb"><a data-go-home>首页</a><span class="sep">/</span><a data-mod="'+(zoneMod[m.zone]||'')+'">'+m.zone+'</a><span class="sep">/</span><span style="color:var(--ink)">'+m.name+'</span></div>'
+   +'<div class="mp-hero"><span class="mp-zone">'+m.zone+(m.internal?' · 内部系统':'')+'</span><h1>'+m.name+'</h1><div class="en">'+m.en+'</div><p>'+m.desc+'</p><div class="mp-kpis">'+kpis+'</div></div>'
+   +'<div class="mp-sec-title">功能要点</div><div class="mp-feats">'+feats+'</div>'
+   +'<div class="mp-cta"><button class="btn btn-primary btn-lg" data-go-cockpit><svg class="ico"><use href="#i-grid"/></svg>进入数字驾驶舱</button><button class="btn btn-line btn-lg" data-go-home><svg class="ico"><use href="#i-arl"/></svg>返回首页</button></div>'
+   +'<div class="mp-note"><svg class="ico"><use href="#i-shield"/></svg><span>本页面为功能模块总览（演示版），完整业务界面将按需求规格说明书逐模块开发上线；' + (m.internal?'该模块属运营管理区，需管理员权限访问。':'涉及军工数据的功能均执行三级分级管控与四级脱敏审核。') + '</span></div>';
+  go('module');
+  startReveal();
+}
+
+/* ================= 全局事件委托 ================= */
+document.addEventListener('click',function(e){
+  var el;
+  if((el=e.target.closest('[data-mod]'))){var id=el.getAttribute('data-mod');if(MODULES[id]){openModule(id);closeDrawer();closeSearch();return}}
+  if((el=e.target.closest('[data-go-cockpit]'))){go('cockpit');closeDrawer();closeSearch();return}
+  if((el=e.target.closest('[data-go-home]'))){go('home');return}
+  if((el=e.target.closest('[data-open-login]'))){openLogin();closeDrawer();return}
+  if((el=e.target.closest('[data-detail]'))){openDetail(el.getAttribute('data-detail'));return}
+  if((el=e.target.closest('[data-toast]'))){toast(el.getAttribute('data-toast'));return}
+  if(e.target.closest('#cpBack')){go('home');return}
+});
+/* 首页导航项：在模块页时点击返回主页 */
+$('.nav-item .nav-link[href="#top"]').addEventListener('click',function(){if(currentView!=='home')go('home')});
+
+/* ================= 导航状态 ================= */
+var navEl=$('#topNav');
+window.addEventListener('scroll',function(){navEl.classList.toggle('scrolled',window.scrollY>40)},{passive:true});
+
+/* 消息弹层 */
+var notifPop=$('#notifPop');
+$('#notifBtn').addEventListener('click',function(e){e.stopPropagation();notifPop.classList.toggle('open')});
+document.addEventListener('click',function(e){if(!e.target.closest('#notifPop'))notifPop.classList.remove('open')});
+
+/* ================= 抽屉 ================= */
+var drawer=$('#drawer'),drawerMask=$('#drawerMask');
+function closeDrawer(){drawer.classList.remove('open');drawerMask.classList.remove('open')}
+$('#burgerBtn').addEventListener('click',function(){drawer.classList.add('open');drawerMask.classList.add('open')});
+$('#drawerClose').addEventListener('click',closeDrawer);
+drawerMask.addEventListener('click',closeDrawer);
+$$('.acc-h').forEach(function(h){h.addEventListener('click',function(){var p=h.parentElement;p.classList.toggle('open')})});
+
+/* ================= 弹窗 ================= */
+function openModal(mask){mask.classList.add('open');document.body.style.overflow='hidden'}
+function shutModal(mask){mask.classList.remove('open');if(currentView!=='cockpit'&&!anyModalOpen())document.body.style.overflow=''}
+$('#detailMask').addEventListener('click',function(e){if(e.target===this)shutModal(this)});
+$('#loginMask').addEventListener('click',function(e){if(e.target===this)shutModal(this)});
+$$('[data-close-modal]').forEach(function(b){b.addEventListener('click',function(){shutModal(b.closest('.modal-mask'))})});
+function openDetail(id){
+  var d=DETAILS[id];if(!d)return;
+  var tags=d.tags.map(function(t){return '<span class="'+t[1]+'">'+t[0]+'</span>'}).join('');
+  var metas=d.metas.map(function(m){return '<div class="m"><span>'+m[0]+'</span><b>'+m[1]+'</b></div>'}).join('');
+  var paras=d.paras.map(function(p){return '<p style="margin-bottom:8px">'+p+'</p>'}).join('');
+  var pts=(d.points||[]).map(function(p){return '<li>'+p+'</li>'}).join('');
+  $('#dmBody').innerHTML='<div class="dm-tags">'+tags+'</div><h3>'+d.title+'</h3><div class="dm-org"><svg class="ico" style="width:14px;height:14px"><use href="#i-build"/></svg>'+d.org+'</div>'
+   +'<div class="dm-metas">'+metas+'</div>'
+   +'<div class="dm-sec">项目说明</div>'+paras
+   +(pts?'<div class="dm-sec">关键要点</div><ul class="dm-list">'+pts+'</ul>':'')
+   +'<div class="dm-cta"><button class="btn btn-primary" data-toast="'+(d.cta?d.cta.msg:'演示环境：功能开发中')+'">'+(d.cta?d.cta.label:'确定')+'</button><button class="btn btn-line" data-close-modal2>关闭</button></div>';
+  openModal($('#detailMask'));
+  $('#dmBody').querySelector('[data-close-modal2]').addEventListener('click',function(){shutModal($('#detailMask'))});
+}
+/* 登录 */
+function openLogin(){openModal($('#loginMask'))}
+$('#loginBtn').addEventListener('click',openLogin);
+$$('#lmRole button').forEach(function(b){b.addEventListener('click',function(){$$('#lmRole button').forEach(function(x){x.classList.remove('active')});b.classList.add('active')})});
+$('#lmSubmit').addEventListener('click',function(){shutModal($('#loginMask'));toast('登录成功，演示环境已进入军工单位视图')});
+
+/* ================= 搜索 ================= */
+var searchOv=$('#searchOv'),searchInput=$('#searchInput'),searchResults=$('#searchResults');
+function closeSearch(){searchOv.classList.remove('open')}
+$('#searchBtn').addEventListener('click',function(){searchOv.classList.add('open');setTimeout(function(){searchInput.focus()},120)});
+searchOv.addEventListener('click',function(e){if(e.target===this)closeSearch()});
+function renderSearch(kw){
+  kw=(kw||'').trim();
+  if('驾驶舱'.indexOf(kw)>-1&&kw){
+    searchResults.innerHTML='<a class="sr-item" data-go-cockpit><svg class="ico"><use href="#i-grid"/></svg>数字智能运营驾驶舱<small>数据看板</small></a>';
+    return;
+  }
+  if(!kw){searchResults.innerHTML='';return}
+  var hits=[];
+  Object.keys(MODULES).forEach(function(id){var m=MODULES[id];if(m.name.indexOf(kw)>-1||m.zone.indexOf(kw)>-1)hits.push([id,m.name,m.zone])});
+  searchResults.innerHTML=hits.slice(0,6).map(function(h){return '<a class="sr-item" data-mod="'+h[0]+'"><svg class="ico"><use href="#i-arr"/></svg>'+h[1]+'<small>'+h[2]+'</small></a>'}).join('')||(kw?'<div class="sr-item" style="cursor:default;opacity:.5">未找到相关模块</div>':'');
+}
+searchInput.addEventListener('input',function(){renderSearch(this.value)});
+searchInput.addEventListener('keydown',function(e){if(e.key==='Enter'){var first=searchResults.querySelector('[data-mod],[data-go-cockpit]');if(first)first.click();else toast('未找到相关内容，请尝试其他关键词')}});
+$$('[data-skw]').forEach(function(b){b.addEventListener('click',function(){searchInput.value=b.getAttribute('data-skw');renderSearch(searchInput.value)})});
+
+/* Esc 关闭 */
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(searchOv.classList.contains('open')){searchOv.classList.remove('open');return}
+  $$('.modal-mask.open').forEach(function(m){m.classList.remove('open')});
+  closeDrawer();
+  if(!$('#cockpitPage').hidden)go('home');
+});
+
+/* ================= 滚动显现 ================= */
+var revealIO=null;
+function startReveal(){
+  if(revealIO)revealIO.disconnect();
+  revealIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');revealIO.unobserve(en.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  $$('.reveal:not(.in)').forEach(function(el,i){revealIO.observe(el)});
+  $$('.ep-card').forEach(function(el){revealIO.observe(el)});
+}
+startReveal();
+
+/* ================= 数字滚动 ================= */
+function countUp(el){
+  var target=parseFloat(el.getAttribute('data-count')),t0=null,dur=1600;
+  function frame(t){
+    if(!t0)t0=t;
+    var p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e).toLocaleString('zh-CN');
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+var statsIO=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      $$('[data-count]',en.target).forEach(function(el,i){setTimeout(function(){countUp(el)},i*110)});
+      statsIO.unobserve(en.target);
+    }
+  });
+},{threshold:.2});
+statsIO.observe($('#statsGrid'));
+
+/* ================= 倒计时 ================= */
+function tickCd(){
+  $$('[data-deadline]').forEach(function(el){
+    var end=new Date(el.getAttribute('data-deadline')).getTime();
+    var s=Math.max(0,Math.floor((end-Date.now())/1000));
+    var d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),sec=s%60;
+    var p=function(n){return (n<10?'0':'')+n};
+    el.innerHTML=(d>0?'<i>'+d+'</i> 天 ':'')+p(h)+'<i>:</i>'+p(m)+'<i>:</i>'+p(sec);
+  });
+}
+setInterval(tickCd,1000);tickCd();
+
+/* ================= Tabs 过滤 ================= */
+function bindTabs(tabsSel,itemsSel,attr){
+  var tabs=$(tabsSel);if(!tabs)return;
+  tabs.addEventListener('click',function(e){
+    var t=e.target.closest('.tab');if(!t)return;
+    $$('.tab',tabs).forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+    var f=t.getAttribute('data-f');
+    $$(itemsSel).forEach(function(it){
+      var v=it.getAttribute(attr);
+      it.style.display=(f==='all'||v===f)?'':'none';
+    });
+  });
+}
+bindTabs('#projTabs','.p-bento > [data-src]','data-src');
+bindTabs('#caseTabs','.case-grid > [data-ct]','data-ct');
+bindTabs('#jobTabs','.job-item','data-jt');
+
+/* ================= Hero 粒子引擎 ================= */
+(function(){
+  var cv=$('#heroCanvas');if(!cv)return;
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,pts=[],raf=null,running=false;
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=W*DPR;cv.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    var n=Math.min(90,Math.round(W*H/16000));
+    pts=[];
+    for(var i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.6+.6,g:Math.random()<.18});
+  }
+  function step(){
+    if(!running)return;
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+    for(var a=0;a<pts.length;a++)for(var b=a+1;b<pts.length;b++){
+      var p1=pts[a],p2=pts[b],dx=p1.x-p2.x,dy=p1.y-p2.y,d2=dx*dx+dy*dy;
+      if(d2<16900){var t=1-Math.sqrt(d2)/130;
+        ctx.strokeStyle='rgba(91,147,227,'+(t*.13).toFixed(3)+')';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();
+      }
+    }
+    for(var j=0;j<pts.length;j++){var q=pts[j];
+      ctx.beginPath();ctx.arc(q.x,q.y,q.r,0,6.29);
+      ctx.fillStyle=q.g?'rgba(201,165,92,.7)':'rgba(122,168,228,.55)';ctx.fill();
+    }
+    raf=requestAnimationFrame(step);
+  }
+  resize();
+  window.addEventListener('resize',function(){resize();if(reduce)drawOnce()});
+  function drawOnce(){ctx.clearRect(0,0,W,H);for(var j=0;j<pts.length;j++){var q=pts[j];ctx.beginPath();ctx.arc(q.x,q.y,q.r,0,6.29);ctx.fillStyle=q.g?'rgba(201,165,92,.7)':'rgba(122,168,228,.55)';ctx.fill()}}
+  if(reduce){drawOnce();return}
+  new IntersectionObserver(function(en){
+    var vis=en[0].isIntersecting;
+    if(vis&&!running){running=true;step()}
+    else if(!vis&&running){running=false;cancelAnimationFrame(raf)}
+  },{threshold:.05}).observe(cv);
+})();
+
+/* ================= 驾驶舱 ================= */
+var cpInited=false,cpTimers=[];
+function initCockpit(){
+  cpTimers.forEach(clearInterval);cpTimers=[];
+  startClock();
+  if(!cpInited){cpInited=true;initCharts();initFeed()}
+}
+function startClock(){
+  function tick(){
+    var n=new Date(),p=function(x){return (x<10?'0':'')+x};
+    $('#cpClock').textContent=p(n.getHours())+':'+p(n.getMinutes())+':'+p(n.getSeconds());
+    var wd=['日','一','二','三','四','五','六'];
+    $('#cpDate').textContent=n.getFullYear()+'-'+p(n.getMonth()+1)+'-'+p(n.getDate())+' 星期'+wd[n.getDay()];
+  }
+  tick();cpTimers.push(setInterval(tick,1000));
+  cpTimers.push(setInterval(function(){
+    $$('#cpKpis [data-kpi]').forEach(function(el){
+      var base=parseFloat(el.getAttribute('data-kpi')),fix=el.getAttribute('data-fix');
+      var v=base+(Math.random()*base*.004*(Math.random()<.7?1:-1));
+      if(fix)v=parseFloat(v.toFixed(1));
+      else v=Math.round(v);
+      el.textContent=v.toLocaleString('zh-CN')+(el.getAttribute('data-suffix')||'');
+    });
+  },3000));
+}
+function initFeed(){
+  var pool=[
+    ['华大九天','完成 EDA 时序工具 v3.2 适配验证，验证报告已入库'],
+    ['某航空工业集团','发布 CAE 国产化替代需求 N-2026-086，预算 800 万元'],
+    ['北京航空航天大学','提交成果《几何内核大规模装配加速算法》'],
+    ['中望软件','× 兵器某院 签署 CAD 适配验证合作协议'],
+    ['供需匹配引擎','完成 24 组智能匹配，平均匹配度 87.3%'],
+    ['春雷大赛','新增报名 36 支队伍，累计 1,286 队'],
+    ['哈尔滨工程大学','32 名学员通过 L3 认证考核'],
+    ['专项基金','完成本月第二笔拨付，金额 120 万元'],
+    ['安世亚太','仿真数据管理模块通过中期评审'],
+    ['概伦电子','器件建模精度对标达 98%，进入推广期']
+  ];
+  var feed=$('#cpFeed'),idx=0;
+  function add(){
+    var it=pool[idx%pool.length];idx++;
+    var n=new Date(),p=function(x){return (x<10?'0':'')+x};
+    var d=document.createElement('div');
+    d.className='feed-item';
+    d.innerHTML='<span class="fi-t">'+p(n.getHours())+':'+p(n.getMinutes())+'</span><p><b>'+it[0]+'</b> · '+it[1]+'</p>';
+    feed.insertBefore(d,feed.firstChild);
+    while(feed.children.length>9)feed.removeChild(feed.lastChild);
+  }
+  for(var i=0;i<6;i++)add();
+  cpTimers.push(setInterval(add,4000));
+}
+var trendData=null;
+function initCharts(){
+  if(!window.echarts){
+    $$('.chart').forEach(function(c){c.innerHTML='<div class="chart-fb">图表组件未能加载（当前环境离线）<br>关键数据见上方指标与任务看板</div>'});
+    return;
+  }
+  var AX={axisLine:{lineStyle:{color:'rgba(140,170,210,.25)'}},axisLabel:{color:'rgba(255,255,255,.5)',fontSize:11},splitLine:{lineStyle:{color:'rgba(140,170,210,.08)'}}};
+  /* 趋势 */
+  var days=[],d1=[],d2=[];
+  var now=new Date();
+  for(var i=29;i>=0;i--){
+    var t=new Date(now.getTime()-i*86400000);
+    days.push((t.getMonth()+1)+'/'+t.getDate());
+    d1.push(Math.round(18+Math.sin(i/4)*6+Math.random()*8));
+    d2.push(Math.round(10+Math.sin(i/4+1)*4+Math.random()*7));
+  }
+  trendData={days:days,d1:d1,d2:d2};
+  var chTrend=echarts.init($('#chTrend'));
+  chTrend.setOption({
+    grid:{left:36,right:12,top:24,bottom:26},
+    tooltip:{trigger:'axis',backgroundColor:'rgba(10,21,38,.95)',borderColor:'rgba(201,165,92,.4)',textStyle:{color:'#EAF0FA',fontSize:12}},
+    legend:{data:['需求发布','成功对接'],textStyle:{color:'rgba(255,255,255,.55)',fontSize:11},top:0,right:0,icon:'rect',itemWidth:10,itemHeight:3},
+    xAxis:Object.assign({type:'category',data:days,boundaryGap:false},AX),
+    yAxis:Object.assign({type:'value'},AX),
+    series:[
+      {name:'需求发布',type:'line',data:d1,smooth:true,symbol:'none',lineStyle:{color:'#5B93E3',width:2},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(91,147,227,.3)'},{offset:1,color:'rgba(91,147,227,0)'}]}}},
+      {name:'成功对接',type:'line',data:d2,smooth:true,symbol:'none',lineStyle:{color:'#C9A55C',width:2},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(201,165,92,.22)'},{offset:1,color:'rgba(201,165,92,0)'}]}}}
+    ]
+  });
+  /* 仪表盘 */
+  var chGauge=echarts.init($('#chGauge'));
+  chGauge.setOption({
+    series:[{type:'gauge',startAngle:210,endAngle:-30,min:0,max:100,center:['50%','58%'],radius:'92%',
+      progress:{show:true,width:12,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#2F6FD0'},{offset:1,color:'#C9A55C'}]}}},
+      axisLine:{lineStyle:{width:12,color:[[1,'rgba(255,255,255,.08)']]}},
+      axisTick:{show:false},splitLine:{length:6,distance:14,lineStyle:{color:'rgba(140,170,210,.3)'}},
+      axisLabel:{distance:22,color:'rgba(255,255,255,.4)',fontSize:10},
+      pointer:{show:false},
+      anchor:{show:false},
+      title:{show:true,offsetCenter:[0,'32%'],color:'rgba(255,255,255,.5)',fontSize:12},
+      detail:{valueAnimation:true,offsetCenter:[0,'2%'],fontSize:30,fontWeight:700,color:'#E3C88E',formatter:'{value}%'},
+      data:[{value:31.6,name:'整体国产化率'}]}]
+  });
+  /* 领域柱状 */
+  var chDomain=echarts.init($('#chDomain'));
+  chDomain.setOption({
+    grid:{left:60,right:16,top:16,bottom:26},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'rgba(10,21,38,.95)',borderColor:'rgba(201,165,92,.4)',textStyle:{color:'#EAF0FA',fontSize:12}},
+    xAxis:Object.assign({type:'value'},AX),
+    yAxis:Object.assign({type:'category',data:['核','电子','兵器','船舶','航天','航空']},AX),
+    series:[{type:'bar',data:[{value:34,itemStyle:{color:'#3E6FA8'}},{value:88,itemStyle:{color:'#4A80C0'}},{value:71,itemStyle:{color:'#5B93E3'}},{value:76,itemStyle:{color:'#7FAEEA'}},{value:84,itemStyle:{color:'#B8CF6E'}},{value:92,itemStyle:{color:'#C9A55C'}}],barWidth:10,itemStyle:{borderRadius:[0,3,3,0]},label:{show:true,position:'right',color:'rgba(255,255,255,.6)',fontSize:11}}]
+  });
+  /* 雷达 */
+  var chRadar=echarts.init($('#chRadar'));
+  chRadar.setOption({
+    tooltip:{backgroundColor:'rgba(10,21,38,.95)',borderColor:'rgba(201,165,92,.4)',textStyle:{color:'#EAF0FA',fontSize:12}},
+    radar:{indicator:[{name:'理论知识',max:100},{name:'实操技能',max:100},{name:'工程素养',max:100},{name:'创新攻关',max:100},{name:'国产化意识',max:100},{name:'协同能力',max:100}],
+      center:['50%','54%'],radius:'66%',
+      axisName:{color:'rgba(255,255,255,.6)',fontSize:11},
+      splitLine:{lineStyle:{color:'rgba(140,170,210,.15)'}},
+      splitArea:{areaStyle:{color:['rgba(91,147,227,.03)','rgba(91,147,227,.06)']}},
+      axisLine:{lineStyle:{color:'rgba(140,170,210,.2)'}}},
+    series:[{type:'radar',data:[{value:[86,92,78,74,95,81],name:'平台人才均值'}],symbol:'circle',symbolSize:4,
+      lineStyle:{color:'#C9A55C',width:2},itemStyle:{color:'#E3C88E'},
+      areaStyle:{color:'rgba(201,165,92,.18)'}}]
+  });
+  /* 环形 */
+  var chDonut=echarts.init($('#chDonut'));
+  chDonut.setOption({
+    tooltip:{trigger:'item',backgroundColor:'rgba(10,21,38,.95)',borderColor:'rgba(201,165,92,.4)',textStyle:{color:'#EAF0FA',fontSize:12}},
+    legend:{orient:'vertical',right:4,top:'center',textStyle:{color:'rgba(255,255,255,.55)',fontSize:11},itemWidth:9,itemHeight:9},
+    series:[{type:'pie',radius:['48%','70%'],center:['34%','50%'],avoidLabelOverlap:true,
+      itemStyle:{borderColor:'#0A1526',borderWidth:2},
+      label:{show:false},emphasis:{label:{show:false}},
+      data:[
+        {value:386,name:'软件成果',itemStyle:{color:'#5B93E3'}},
+        {value:264,name:'验证报告',itemStyle:{color:'#7FAEEA'}},
+        {value:232,name:'工程案例',itemStyle:{color:'#C9A55C'}},
+        {value:186,name:'基准数据',itemStyle:{color:'#B8CF6E'}},
+        {value:168,name:'技术报告',itemStyle:{color:'#8A6FD0'}},
+        {value:126,name:'规范标准',itemStyle:{color:'#4FB693'}},
+        {value:104,name:'课程资源',itemStyle:{color:'#E3C88E'}},
+        {value:64,name:'人才数据',itemStyle:{color:'#8A96AA'}}
+      ]}]
+  });
+  /* 贡献榜 */
+  var chRank=echarts.init($('#chRank'));
+  chRank.setOption({
+    grid:{left:96,right:36,top:14,bottom:26},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'rgba(10,21,38,.95)',borderColor:'rgba(201,165,92,.4)',textStyle:{color:'#EAF0FA',fontSize:12}},
+    xAxis:Object.assign({type:'value'},AX),
+    yAxis:Object.assign({type:'category',data:['电子科技大学','哈尔滨工业大学','安世亚太','北京航空航天大学','中望软件','华大九天']},AX),
+    series:[{type:'bar',data:[
+      {value:132,itemStyle:{color:'#3E6FA8'}},{value:156,itemStyle:{color:'#4A80C0'}},{value:178,itemStyle:{color:'#5B93E3'}},{value:186,itemStyle:{color:'#7FAEEA'}},{value:204,itemStyle:{color:'#B8CF6E'}},{value:246,itemStyle:{color:'#C9A55C'}}],
+      barWidth:11,itemStyle:{borderRadius:[0,3,3,0]},label:{show:true,position:'right',color:'rgba(255,255,255,.6)',fontSize:11}}]
+  });
+  window.addEventListener('resize',function(){[chTrend,chGauge,chDomain,chRadar,chDonut,chRank].forEach(function(c){c&&c.resize()})});
+  /* 趋势图定时滚动 */
+  cpTimers.push(setInterval(function(){
+    if(!trendData)return;
+    var t=new Date();
+    trendData.days.shift();trendData.days.push((t.getMonth()+1)+'/'+t.getDate());
+    trendData.d1.shift();trendData.d1.push(Math.round(18+Math.random()*14));
+    trendData.d2.shift();trendData.d2.push(Math.round(10+Math.random()*10));
+    chTrend.setOption({xAxis:{data:trendData.days},series:[{data:trendData.d1},{data:trendData.d2}]});
+  },5000));
+  /* 任务看板动画 */
+  $$('#cockpitPage .board-row .bo i').forEach(function(i){setTimeout(function(){i.style.width=i.getAttribute('data-w')},300)});
+}
+</script>
+
+</body>
+</html>
